@@ -1,3 +1,5 @@
+using JELMusic.Domain.ValueObjects.MusicalKnowledge;
+
 namespace JELMusic.Domain.ValueObjects;
 
 public sealed class MusicalDNA
@@ -11,6 +13,8 @@ public sealed class MusicalDNA
     public int TempoBpm { get; private set; }
 
     public string VocalStyle { get; private set; }
+
+    public MusicalStyleProfile? StyleProfile { get; private set; }
 
     private MusicalDNA()
     {
