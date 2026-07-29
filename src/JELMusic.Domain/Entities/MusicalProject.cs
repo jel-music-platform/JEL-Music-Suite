@@ -1,3 +1,5 @@
+using JELMusic.Domain.Enums;
+
 namespace JELMusic.Domain.Entities;
 
 public class MusicalProject
@@ -11,6 +13,10 @@ public class MusicalProject
     public string Description { get; private set; }
 
     public DateTime CreatedAt { get; private set; }
+
+    public ProjectStatus Status { get; private set; }
+
+    public int Version { get; private set; }
 
     private MusicalProject()
     {
@@ -29,5 +35,7 @@ public class MusicalProject
         Genre = genre;
         Description = description;
         CreatedAt = DateTime.UtcNow;
+        Status = ProjectStatus.Draft;
+        Version = 1;
     }
 }
