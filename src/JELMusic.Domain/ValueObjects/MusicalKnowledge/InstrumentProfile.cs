@@ -1,12 +1,10 @@
+using JELMusic.Domain.ValueObjects.MusicalKnowledge.Core;
+
 namespace JELMusic.Domain.ValueObjects.MusicalKnowledge;
 
-public sealed class InstrumentProfile
+public sealed class InstrumentProfile : KnowledgeProfile
 {
-    public string Name { get; private set; }
-
     public string Family { get; private set; }
-
-    public string Origin { get; private set; }
 
     public string Function { get; private set; }
 
@@ -14,9 +12,7 @@ public sealed class InstrumentProfile
 
     private InstrumentProfile()
     {
-        Name = string.Empty;
         Family = string.Empty;
-        Origin = string.Empty;
         Function = string.Empty;
         Character = string.Empty;
     }
@@ -24,14 +20,18 @@ public sealed class InstrumentProfile
     public InstrumentProfile(
         string name,
         string family,
-        string origin,
-        string function,
-        string character)
+        string description,
+        string culturalContext,
+        string character,
+        KnowledgeOrigin? origin = null)
+        : base(
+            name,
+            description,
+            culturalContext,
+            origin)
     {
-        Name = name;
         Family = family;
-        Origin = origin;
-        Function = function;
+        Function = description;
         Character = character;
     }
 }
