@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/JELMusic.Domain/JELMusic.Domain.csproj" />
+    <Project Path="src/JELMusic.Framework/JELMusic.Framework.csproj" />
+    <Project Path="src/JELMusic.Host/JELMusic.Host.csproj" />
+    <Project Path="src/JELMusic.Infrastructure/JELMusic.Infrastructure.csproj" />
+    <Project Path="src/JELMusic.Studio/JELMusic.Studio.csproj" />
+  </Folder>
+</Solution>
