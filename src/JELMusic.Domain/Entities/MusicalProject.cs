@@ -1,4 +1,5 @@
 using JELMusic.Domain.Enums;
+using JELMusic.Domain.ValueObjects;
 
 namespace JELMusic.Domain.Entities;
 
@@ -16,7 +17,9 @@ public class MusicalProject
 
     public ProjectStatus Status { get; private set; }
 
-    public int Version { get; private set; }
+    public int ProjectVersion { get; private set; }
+
+    public MusicalDNA? DNA { get; private set; }
 
     private MusicalProject()
     {
@@ -36,6 +39,6 @@ public class MusicalProject
         Description = description;
         CreatedAt = DateTime.UtcNow;
         Status = ProjectStatus.Draft;
-        Version = 1;
+        ProjectVersion = 1;
     }
 }
