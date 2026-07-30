@@ -4,9 +4,9 @@ namespace JELMusic.Domain.ValueObjects.MusicalKnowledge;
 
 public sealed class MusicalStyleProfile : KnowledgeProfile
 {
-    public string Characteristics { get; private set; }
+     public string Characteristics { get; }
 
-    public string Character { get; private set; }
+     public string Character { get; }
 
     private MusicalStyleProfile()
     {

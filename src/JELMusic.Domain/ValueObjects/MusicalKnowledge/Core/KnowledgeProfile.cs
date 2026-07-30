@@ -1,14 +1,15 @@
+using JELMusic.Domain.ValueObjects.MusicalKnowledge;
 namespace JELMusic.Domain.ValueObjects.MusicalKnowledge.Core;
 
 public abstract class KnowledgeProfile
 {
-    public string Name { get; protected set; }
+    public string Name { get; }
 
-    public string Description { get; protected set; }
+    public string Description { get; }
 
-    public string CulturalContext { get; protected set; }
+    public string CulturalContext { get;  }
 
-    public KnowledgeOrigin? Origin { get; protected set; }
+    public KnowledgeOrigin? Origin { get;  }
 
     protected KnowledgeProfile()
     {

@@ -1,35 +1,41 @@
+using JELMusic.Domain.ValueObjects.MusicalKnowledge;
 namespace JELMusic.Domain.ValueObjects;
 
 public sealed class MusicalDNA
 {
-    public string Influences { get; private set; }
 
-    public string Instruments { get; private set; }
+ public IReadOnlyCollection<InfluenceProfile> InfluenceProfiles { get; }   
 
-    public MusicalKnowledge.MusicalStyleProfile? Style { get; private set; }
+    public IReadOnlyCollection<InstrumentProfile> InstrumentProfiles { get; }
 
-    public PerformanceProfile Performance { get; private set; }
+  public MusicalStyleProfile? Style { get; }  
+
+    public PerformanceProfile Performance { get; }
 
     private MusicalDNA()
     {
-        Influences = string.Empty;
-        Instruments = string.Empty;
+        InfluenceProfiles = Array.Empty<InfluenceProfile>();
 
-        Performance = new PerformanceProfile(
-            string.Empty,
-            0,
-            string.Empty);
+        InstrumentProfiles = Array.Empty<InstrumentProfile>();
+
+      Performance = new PerformanceProfile(
+    string.Empty,
+    60,
+    string.Empty);  
     }
 
     public MusicalDNA(
-        string influences,
-        string instruments,
+        IEnumerable<InfluenceProfile> influenceProfiles,
+        IEnumerable<InstrumentProfile> instrumentProfiles,
         PerformanceProfile performance,
-        MusicalKnowledge.MusicalStyleProfile? style = null)
+        MusicalStyleProfile? style = null)
     {
-        Influences = influences;
-        Instruments = instruments;
+        InfluenceProfiles = influenceProfiles.ToList().AsReadOnly();
+
+        InstrumentProfiles = instrumentProfiles.ToList().AsReadOnly();
+
         Performance = performance;
+
         Style = style;
     }
 }

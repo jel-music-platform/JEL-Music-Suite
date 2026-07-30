@@ -4,11 +4,11 @@ namespace JELMusic.Domain.ValueObjects.MusicalKnowledge;
 
 public sealed class InstrumentProfile : KnowledgeProfile
 {
-    public string Family { get; private set; }
+    public string Family { get;  }
 
-    public string Function { get; private set; }
+    public string Function { get; }
 
-    public string Character { get; private set; }
+    public string Character { get; }
 
     private InstrumentProfile()
     {

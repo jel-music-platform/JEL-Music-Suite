@@ -1,18 +1,20 @@
-namespace JELMusic.Domain.ValueObjects;
+namespace JELMusic.Domain.ValueObjects.MusicalKnowledge;
 
 public sealed class PerformanceProfile
 {
-    public string Mood { get; private set; }
+    public string Mood { get; }
 
-    public int TempoBpm { get; private set; }
+    public int TempoBpm { get; }
 
-    public string VocalStyle { get; private set; }
+    public string VocalStyle { get; }
+
 
     private PerformanceProfile()
     {
         Mood = string.Empty;
         VocalStyle = string.Empty;
     }
+
 
     public PerformanceProfile(
         string mood,

@@ -4,22 +4,24 @@ namespace JELMusic.Domain.ValueObjects.MusicalKnowledge;
 
 public sealed class InfluenceProfile : KnowledgeProfile
 {
-    public string Characteristics { get; private set; }
+    public string InfluenceType { get; }
 
-    public string Character { get; private set; }
+    public string MusicalContribution { get; }
+
 
     private InfluenceProfile()
     {
-        Characteristics = string.Empty;
-        Character = string.Empty;
+        InfluenceType = string.Empty;
+        MusicalContribution = string.Empty;
     }
+
 
     public InfluenceProfile(
         string name,
-        string characteristics,
+        string influenceType,
         string description,
         string culturalContext,
-        string character,
+        string musicalContribution,
         KnowledgeOrigin? origin = null)
         : base(
             name,
@@ -27,7 +29,7 @@ public sealed class InfluenceProfile : KnowledgeProfile
             culturalContext,
             origin)
     {
-        Characteristics = characteristics;
-        Character = character;
+        InfluenceType = influenceType;
+        MusicalContribution = musicalContribution;
     }
 }

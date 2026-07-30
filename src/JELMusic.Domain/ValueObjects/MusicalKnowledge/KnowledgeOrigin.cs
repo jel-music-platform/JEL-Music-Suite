@@ -2,13 +2,14 @@ namespace JELMusic.Domain.ValueObjects.MusicalKnowledge;
 
 public sealed class KnowledgeOrigin
 {
-    public string Source { get; private set; }
+    public string Source { get; }
 
-    public string Reference { get; private set; }
+    public string Reference { get; }
 
-    public string CulturalContext { get; private set; }
+    public string CulturalContext { get; }
 
-    public DateTime RegisteredAt { get; private set; }
+    public DateTime RegisteredAt { get; }
+
 
     private KnowledgeOrigin()
     {
@@ -16,6 +17,7 @@ public sealed class KnowledgeOrigin
         Reference = string.Empty;
         CulturalContext = string.Empty;
     }
+
 
     public KnowledgeOrigin(
         string source,
