@@ -1,14 +1,14 @@
 using JELMusic.Domain.ValueObjects.MusicalKnowledge;
+
 namespace JELMusic.Domain.ValueObjects;
 
 public sealed class MusicalDNA
 {
-
- public IReadOnlyCollection<InfluenceProfile> InfluenceProfiles { get; }   
+    public IReadOnlyCollection<InfluenceProfile> InfluenceProfiles { get; }
 
     public IReadOnlyCollection<InstrumentProfile> InstrumentProfiles { get; }
 
-  public MusicalStyleProfile? Style { get; }  
+    public MusicalStyleProfile? Style { get; }
 
     public PerformanceProfile Performance { get; }
 

@@ -1,4 +1,4 @@
-namespace JELMusic.Domain.ValueObjects.MusicalKnowledge;
+namespace JELMusic.Domain.ValueObjects;
 
 public sealed class PerformanceProfile
 {

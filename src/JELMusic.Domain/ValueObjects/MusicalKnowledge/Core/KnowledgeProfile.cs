@@ -1,7 +1,8 @@
 using JELMusic.Domain.ValueObjects.MusicalKnowledge;
+using JELMusic.Domain.Common;
 namespace JELMusic.Domain.ValueObjects.MusicalKnowledge.Core;
 
-public abstract class KnowledgeProfile
+public abstract class KnowledgeProfile : ValueObject
 {
     public string Name { get; }
 
@@ -29,4 +30,11 @@ public abstract class KnowledgeProfile
         CulturalContext = culturalContext;
         Origin = origin;
     }
+    protected override IEnumerable<object?> GetEqualityComponents()
+{
+    yield return Name;
+    yield return Description;
+    yield return CulturalContext;
+    yield return Origin;
+}
 }
