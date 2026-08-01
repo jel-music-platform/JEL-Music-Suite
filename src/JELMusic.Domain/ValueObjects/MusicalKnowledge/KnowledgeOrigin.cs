@@ -1,6 +1,8 @@
+using JELMusic.Domain.Common;
+
 namespace JELMusic.Domain.ValueObjects.MusicalKnowledge;
 
-public sealed class KnowledgeOrigin
+public sealed class KnowledgeOrigin : ValueObject
 {
     public string Source { get; }
 
@@ -27,5 +29,13 @@ public sealed class KnowledgeOrigin
         Reference = reference;
         CulturalContext = culturalContext;
         RegisteredAt = DateTime.UtcNow;
+    }
+
+    protected override IEnumerable<object?> GetEqualityComponents()
+    {
+        yield return Source;
+        yield return Reference;
+        yield return CulturalContext;
+        yield return RegisteredAt;
     }
 }
