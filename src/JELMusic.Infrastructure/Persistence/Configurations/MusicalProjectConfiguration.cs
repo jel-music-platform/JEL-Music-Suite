@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace JELMusic.Infrastructure.Persistence.Configurations;
 
-public sealed class MusicalProjectConfiguration 
+public sealed class MusicalProjectConfiguration
     : IEntityTypeConfiguration<MusicalProject>
 {
     public void Configure(EntityTypeBuilder<MusicalProject> entity)
