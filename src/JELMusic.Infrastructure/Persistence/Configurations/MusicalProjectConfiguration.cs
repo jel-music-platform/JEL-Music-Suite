@@ -79,7 +79,54 @@ public sealed class MusicalProjectConfiguration
             .HasColumnName("OriginRegisteredAt");
     });
 });
-            dna.Ignore(x => x.InstrumentProfiles);
+            dna.OwnsMany(x => x.InstrumentProfiles, instrument =>
+{
+    instrument.WithOwner();
+
+    instrument.Property("Id");
+    instrument.HasKey("Id");
+
+    instrument.Property(x => x.Name)
+        .HasColumnName("Name")
+        .HasMaxLength(200);
+
+    instrument.Property(x => x.Description)
+        .HasColumnName("Description")
+        .HasMaxLength(1000);
+
+    instrument.Property(x => x.CulturalContext)
+        .HasColumnName("CulturalContext")
+        .HasMaxLength(500);
+
+    instrument.Property(x => x.Family)
+        .HasColumnName("Family")
+        .HasMaxLength(200);
+
+    instrument.Property(x => x.Function)
+    .HasColumnName("Function")
+    .HasMaxLength(500);
+
+    instrument.Property(x => x.Character)
+    .HasColumnName("Character")
+    .HasMaxLength(200);
+    instrument.OwnsOne(x => x.Origin, origin =>
+    {
+        origin.Property(x => x.Source)
+            .HasColumnName("OriginSource")
+            .HasMaxLength(200);
+
+        origin.Property(x => x.Reference)
+            .HasColumnName("OriginReference")
+            .HasMaxLength(500);
+
+        origin.Property(x => x.CulturalContext)
+            .HasColumnName("OriginCulturalContext")
+            .HasMaxLength(500);
+
+        origin.Property(x => x.RegisteredAt)
+            .HasColumnName("OriginRegisteredAt");
+    });
+});
 
             dna.OwnsOne(x => x.Style, style =>
             {
