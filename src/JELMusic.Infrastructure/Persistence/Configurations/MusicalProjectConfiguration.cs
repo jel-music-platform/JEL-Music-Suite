@@ -31,6 +31,25 @@ public sealed class MusicalProjectConfiguration
         entity.Property(x => x.ProjectVersion)
             .IsRequired();
 
-        entity.Ignore(x => x.DNA);
+        entity.OwnsOne(x => x.DNA, dna =>
+        {
+            dna.Ignore(x => x.InfluenceProfiles);
+            dna.Ignore(x => x.InstrumentProfiles);
+            dna.Ignore(x => x.Style);
+
+            dna.OwnsOne(x => x.Performance, performance =>
+            {
+                performance.Property(x => x.Mood)
+                    .HasColumnName("Mood")
+                    .HasMaxLength(100);
+
+                performance.Property(x => x.TempoBpm)
+                    .HasColumnName("TempoBpm");
+
+                performance.Property(x => x.VocalStyle)
+                    .HasColumnName("VocalStyle")
+                    .HasMaxLength(100);
+            });
+        });
     }
 }
