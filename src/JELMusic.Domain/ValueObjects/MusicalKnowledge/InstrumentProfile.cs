@@ -4,7 +4,7 @@ namespace JELMusic.Domain.ValueObjects.MusicalKnowledge;
 
 public sealed class InstrumentProfile : KnowledgeProfile
 {
-    public string Family { get;  }
+    public string Family { get; }
 
     public string Function { get; }
 
@@ -20,6 +20,7 @@ public sealed class InstrumentProfile : KnowledgeProfile
     public InstrumentProfile(
         string name,
         string family,
+        string function,
         string description,
         string culturalContext,
         string character,
@@ -31,7 +32,17 @@ public sealed class InstrumentProfile : KnowledgeProfile
             origin)
     {
         Family = family;
-        Function = description;
+        Function = function;
         Character = character;
+    }
+
+    protected override IEnumerable<object?> GetEqualityComponents()
+    {
+        foreach (var component in GetBaseEqualityComponents())
+            yield return component;
+
+        yield return Family;
+        yield return Function;
+        yield return Character;
     }
 }

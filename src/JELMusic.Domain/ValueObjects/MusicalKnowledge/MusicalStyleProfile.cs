@@ -4,9 +4,9 @@ namespace JELMusic.Domain.ValueObjects.MusicalKnowledge;
 
 public sealed class MusicalStyleProfile : KnowledgeProfile
 {
-     public string Characteristics { get; }
+    public string Characteristics { get; }
 
-     public string Character { get; }
+    public string Character { get; }
 
     private MusicalStyleProfile()
     {
@@ -29,5 +29,14 @@ public sealed class MusicalStyleProfile : KnowledgeProfile
     {
         Characteristics = characteristics;
         Character = character;
+    }
+
+    protected override IEnumerable<object?> GetEqualityComponents()
+    {
+        foreach (var component in GetBaseEqualityComponents())
+            yield return component;
+
+        yield return Characteristics;
+        yield return Character;
     }
 }

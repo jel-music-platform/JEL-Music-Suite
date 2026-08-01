@@ -1,5 +1,6 @@
-using JELMusic.Domain.ValueObjects.MusicalKnowledge;
 using JELMusic.Domain.Common;
+using JELMusic.Domain.ValueObjects.MusicalKnowledge;
+
 namespace JELMusic.Domain.ValueObjects.MusicalKnowledge.Core;
 
 public abstract class KnowledgeProfile : ValueObject
@@ -8,9 +9,9 @@ public abstract class KnowledgeProfile : ValueObject
 
     public string Description { get; }
 
-    public string CulturalContext { get;  }
+    public string CulturalContext { get; }
 
-    public KnowledgeOrigin? Origin { get;  }
+    public KnowledgeOrigin? Origin { get; }
 
     protected KnowledgeProfile()
     {
@@ -30,11 +31,18 @@ public abstract class KnowledgeProfile : ValueObject
         CulturalContext = culturalContext;
         Origin = origin;
     }
+
+    protected IEnumerable<object?> GetBaseEqualityComponents()
+    {
+        yield return Name;
+        yield return Description;
+        yield return CulturalContext;
+        yield return Origin;
+    }
+
     protected override IEnumerable<object?> GetEqualityComponents()
-{
-    yield return Name;
-    yield return Description;
-    yield return CulturalContext;
-    yield return Origin;
-}
+    {
+        foreach (var component in GetBaseEqualityComponents())
+            yield return component;
+    }
 }

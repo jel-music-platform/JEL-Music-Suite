@@ -8,13 +8,11 @@ public sealed class InfluenceProfile : KnowledgeProfile
 
     public string MusicalContribution { get; }
 
-
     private InfluenceProfile()
     {
         InfluenceType = string.Empty;
         MusicalContribution = string.Empty;
     }
-
 
     public InfluenceProfile(
         string name,
@@ -31,5 +29,14 @@ public sealed class InfluenceProfile : KnowledgeProfile
     {
         InfluenceType = influenceType;
         MusicalContribution = musicalContribution;
+    }
+
+    protected override IEnumerable<object?> GetEqualityComponents()
+    {
+        foreach (var component in GetBaseEqualityComponents())
+            yield return component;
+
+        yield return InfluenceType;
+        yield return MusicalContribution;
     }
 }

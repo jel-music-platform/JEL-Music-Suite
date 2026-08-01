@@ -1,6 +1,8 @@
+using JELMusic.Domain.Common;
+
 namespace JELMusic.Domain.ValueObjects;
 
-public sealed class PerformanceProfile
+public sealed class PerformanceProfile : ValueObject
 {
     public string Mood { get; }
 
@@ -8,13 +10,12 @@ public sealed class PerformanceProfile
 
     public string VocalStyle { get; }
 
-
     private PerformanceProfile()
     {
         Mood = string.Empty;
+        TempoBpm = 60;
         VocalStyle = string.Empty;
     }
-
 
     public PerformanceProfile(
         string mood,
@@ -24,5 +25,12 @@ public sealed class PerformanceProfile
         Mood = mood;
         TempoBpm = tempoBpm;
         VocalStyle = vocalStyle;
+    }
+
+    protected override IEnumerable<object?> GetEqualityComponents()
+    {
+        yield return Mood;
+        yield return TempoBpm;
+        yield return VocalStyle;
     }
 }

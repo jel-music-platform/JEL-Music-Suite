@@ -18,10 +18,10 @@ public sealed class MusicalDNA
 
         InstrumentProfiles = Array.Empty<InstrumentProfile>();
 
-      Performance = new PerformanceProfile(
-    string.Empty,
-    60,
-    string.Empty);  
+        Performance = new PerformanceProfile(
+            string.Empty,
+            60,
+            string.Empty);
     }
 
     public MusicalDNA(
@@ -30,9 +30,13 @@ public sealed class MusicalDNA
         PerformanceProfile performance,
         MusicalStyleProfile? style = null)
     {
-        InfluenceProfiles = influenceProfiles.ToList().AsReadOnly();
+        InfluenceProfiles = influenceProfiles
+            .ToList()
+            .AsReadOnly();
 
-        InstrumentProfiles = instrumentProfiles.ToList().AsReadOnly();
+        InstrumentProfiles = instrumentProfiles
+            .ToList()
+            .AsReadOnly();
 
         Performance = performance;
 
