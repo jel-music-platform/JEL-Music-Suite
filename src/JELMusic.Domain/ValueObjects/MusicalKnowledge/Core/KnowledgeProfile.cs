@@ -6,11 +6,8 @@ namespace JELMusic.Domain.ValueObjects.MusicalKnowledge.Core;
 public abstract class KnowledgeProfile : ValueObject
 {
     public string Name { get; }
-
     public string Description { get; }
-
     public string CulturalContext { get; }
-
     public KnowledgeOrigin? Origin { get; }
 
     protected KnowledgeProfile()
