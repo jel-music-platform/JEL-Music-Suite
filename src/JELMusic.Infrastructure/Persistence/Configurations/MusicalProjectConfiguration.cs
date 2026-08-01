@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace JELMusic.Infrastructure.Persistence.Configurations;
 
-public sealed class MusicalProjectConfiguration
+public sealed class MusicalProjectConfiguration 
     : IEntityTypeConfiguration<MusicalProject>
 {
     public void Configure(EntityTypeBuilder<MusicalProject> entity)
@@ -35,7 +35,6 @@ public sealed class MusicalProjectConfiguration
         {
             dna.Ignore(x => x.InfluenceProfiles);
             dna.Ignore(x => x.InstrumentProfiles);
-            dna.Ignore(x => x.Style);
 
             dna.OwnsOne(x => x.Performance, performance =>
             {
