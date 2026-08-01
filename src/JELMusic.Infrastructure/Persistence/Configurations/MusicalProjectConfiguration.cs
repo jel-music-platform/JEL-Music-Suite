@@ -7,7 +7,8 @@ namespace JELMusic.Infrastructure.Persistence.Configurations;
 public sealed class MusicalProjectConfiguration
     : IEntityTypeConfiguration<MusicalProject>
 {
-    public void Configure(EntityTypeBuilder<MusicalProject> entity)
+public void Configure(EntityTypeBuilder<MusicalProject> entity)
+
     {
         entity.HasKey(x => x.Id);
 
