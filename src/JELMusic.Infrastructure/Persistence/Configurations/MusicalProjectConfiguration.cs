@@ -14,7 +14,6 @@ public sealed class MusicalProjectConfiguration
         entity.Property(x => x.Name)
             .IsRequired()
             .HasMaxLength(200);
-
         entity.Property(x => x.Genre)
             .IsRequired()
             .HasMaxLength(100);
@@ -83,7 +82,7 @@ public sealed class MusicalProjectConfiguration
 {
     instrument.WithOwner();
 
-    instrument.Property("Id");
+    instrument.Property<int>("Id");
     instrument.HasKey("Id");
 
     instrument.Property(x => x.Name)

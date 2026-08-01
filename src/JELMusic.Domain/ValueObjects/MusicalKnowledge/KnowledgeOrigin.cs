@@ -32,10 +32,9 @@ public sealed class KnowledgeOrigin : ValueObject
     }
 
     protected override IEnumerable<object?> GetEqualityComponents()
-    {
-        yield return Source;
-        yield return Reference;
-        yield return CulturalContext;
-        yield return RegisteredAt;
-    }
+{
+    yield return Source;
+    yield return Reference;
+    yield return CulturalContext;
+}
 }
