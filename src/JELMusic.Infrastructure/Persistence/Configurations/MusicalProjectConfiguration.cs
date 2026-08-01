@@ -50,8 +50,6 @@ public sealed class MusicalProjectConfiguration
                     .HasColumnName("StyleCulturalContext")
                     .HasMaxLength(500);
 
-                style.Ignore(x => x.Origin);
-
                 style.Property(x => x.Characteristics)
                     .HasColumnName("StyleCharacteristics")
                     .HasMaxLength(500);
@@ -59,6 +57,24 @@ public sealed class MusicalProjectConfiguration
                 style.Property(x => x.Character)
                     .HasColumnName("StyleCharacter")
                     .HasMaxLength(200);
+
+                style.OwnsOne(x => x.Origin, origin =>
+                {
+                    origin.Property(x => x.Source)
+                        .HasColumnName("StyleOriginSource")
+                        .HasMaxLength(200);
+
+                    origin.Property(x => x.Reference)
+                        .HasColumnName("StyleOriginReference")
+                        .HasMaxLength(500);
+
+                    origin.Property(x => x.CulturalContext)
+                        .HasColumnName("StyleOriginCulturalContext")
+                        .HasMaxLength(500);
+
+                    origin.Property(x => x.RegisteredAt)
+                        .HasColumnName("StyleOriginRegisteredAt");
+                });
             });
 
             dna.OwnsOne(x => x.Performance, performance =>
