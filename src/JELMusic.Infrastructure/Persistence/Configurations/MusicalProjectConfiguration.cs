@@ -36,6 +36,31 @@ public sealed class MusicalProjectConfiguration
             dna.Ignore(x => x.InfluenceProfiles);
             dna.Ignore(x => x.InstrumentProfiles);
 
+            dna.OwnsOne(x => x.Style, style =>
+            {
+                style.Property(x => x.Name)
+                    .HasColumnName("StyleName")
+                    .HasMaxLength(200);
+
+                style.Property(x => x.Description)
+                    .HasColumnName("StyleDescription")
+                    .HasMaxLength(1000);
+
+                style.Property(x => x.CulturalContext)
+                    .HasColumnName("StyleCulturalContext")
+                    .HasMaxLength(500);
+
+                style.Ignore(x => x.Origin);
+
+                style.Property(x => x.Characteristics)
+                    .HasColumnName("StyleCharacteristics")
+                    .HasMaxLength(500);
+
+                style.Property(x => x.Character)
+                    .HasColumnName("StyleCharacter")
+                    .HasMaxLength(200);
+            });
+
             dna.OwnsOne(x => x.Performance, performance =>
             {
                 performance.Property(x => x.Mood)
