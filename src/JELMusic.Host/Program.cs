@@ -1,14 +1,11 @@
-﻿using JELMusic.Infrastructure.Persistence;
-using Microsoft.EntityFrameworkCore;
+﻿using JELMusic.Infrastructure;
+using JELMusic.Infrastructure.Persistence;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 var builder = Host.CreateApplicationBuilder(args);
 
-builder.Services.AddDbContext<CoreDbContext>(options =>
-{
-    options.UseSqlite("Data Source=jelmusic-core.db");
-});
+builder.Services.AddInfrastructure("Data Source=jelmusic-core.db");
 
 var app = builder.Build();
 
