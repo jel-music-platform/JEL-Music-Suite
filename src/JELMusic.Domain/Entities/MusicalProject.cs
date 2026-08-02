@@ -47,6 +47,18 @@ public class MusicalProject
         string description,
         MusicalDNA dna)
     {
+        if (string.IsNullOrWhiteSpace(name))
+            throw new ArgumentException(
+                "Project name cannot be empty.",
+                nameof(name));
+
+        if (string.IsNullOrWhiteSpace(genre))
+            throw new ArgumentException(
+                "Project genre cannot be empty.",
+                nameof(genre));
+
+        ArgumentNullException.ThrowIfNull(dna);
+
         Id = Guid.NewGuid();
         Name = name;
         Genre = genre;
