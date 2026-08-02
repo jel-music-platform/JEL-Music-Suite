@@ -1,11 +1,17 @@
-﻿using JELMusic.Infrastructure;
+﻿using JELMusic.Application;
+using JELMusic.Infrastructure;
 using JELMusic.Infrastructure.Persistence;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 var builder = Host.CreateApplicationBuilder(args);
 
-builder.Services.AddInfrastructure("Data Source=jelmusic-core.db");
+builder.Services.AddApplication();
+builder.Services.AddInfrastructure(
+    "Data Source=jelmusic-core.db");
+
+builder.Services.AddInfrastructure(
+    "Data Source=jelmusic-core.db");
 
 var app = builder.Build();
 
