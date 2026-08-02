@@ -7,4 +7,7 @@
     <Project Path="src/JELMusic.Infrastructure/JELMusic.Infrastructure.csproj" />
     <Project Path="src/JELMusic.Studio/JELMusic.Studio.csproj" />
   </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/JELMusic.Application.Tests/JELMusic.Application.Tests.csproj" />
+  </Folder>
 </Solution>
