@@ -1,4 +1,5 @@
 ﻿using JELMusic.Application;
+using JELMusic.Framework;
 using JELMusic.Infrastructure;
 using JELMusic.Infrastructure.Persistence;
 using Microsoft.Extensions.DependencyInjection;
@@ -7,6 +8,8 @@ using Microsoft.Extensions.Hosting;
 var builder = Host.CreateApplicationBuilder(args);
 
 builder.Services.AddApplication();
+
+builder.Services.AddJELMusicFramework();
 
 builder.Services.AddInfrastructure(
     "Data Source=jelmusic-core.db");

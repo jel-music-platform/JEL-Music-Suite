@@ -3,6 +3,7 @@
   <ItemGroup>
     <ProjectReference Include="..\JELMusic.Infrastructure\JELMusic.Infrastructure.csproj" />
     <ProjectReference Include="..\JELMusic.Application\JELMusic.Application.csproj" />
+    <ProjectReference Include="..\JELMusic.Framework\JELMusic.Framework.csproj" />
   </ItemGroup>
 
   <ItemGroup>

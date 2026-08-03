@@ -31,7 +31,7 @@ public class GetMusicalProjectByIdHandlerTests
 
         var handler = new GetMusicalProjectByIdHandler(repository);
 
-        var result = await handler.ExecuteAsync(
+        var result = await handler.HandleAsync(
             new GetMusicalProjectByIdQuery(project.Id));
 
         Assert.NotNull(result);
@@ -40,16 +40,17 @@ public class GetMusicalProjectByIdHandlerTests
         Assert.Equal("Worship", result.Genre);
         Assert.Equal("Descripción", result.Description);
     }
-   [Fact]
-public async Task Should_return_null_when_project_does_not_exist()
-{
-    var repository = new FakeMusicalProjectRepository();
 
-    var handler = new GetMusicalProjectByIdHandler(repository);
+    [Fact]
+    public async Task Should_return_null_when_project_does_not_exist()
+    {
+        var repository = new FakeMusicalProjectRepository();
 
-    var result = await handler.ExecuteAsync(
-        new GetMusicalProjectByIdQuery(Guid.NewGuid()));
+        var handler = new GetMusicalProjectByIdHandler(repository);
 
-    Assert.Null(result);
-}
+        var result = await handler.HandleAsync(
+            new GetMusicalProjectByIdQuery(Guid.NewGuid()));
+
+        Assert.Null(result);
+    }
 }

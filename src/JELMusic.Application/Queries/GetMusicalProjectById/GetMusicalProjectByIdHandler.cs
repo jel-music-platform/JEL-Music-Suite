@@ -1,8 +1,10 @@
+using JELMusic.Application.Abstractions.Dispatching;
 using JELMusic.Domain.Repositories;
 
 namespace JELMusic.Application.Queries.GetMusicalProjectById;
 
 public sealed class GetMusicalProjectByIdHandler
+    : IQueryHandler<GetMusicalProjectByIdQuery, GetMusicalProjectByIdResult>
 {
     private readonly IMusicalProjectRepository _repository;
 
@@ -12,7 +14,7 @@ public sealed class GetMusicalProjectByIdHandler
         _repository = repository;
     }
 
-    public async Task<GetMusicalProjectByIdResult?> ExecuteAsync(
+    public async Task<GetMusicalProjectByIdResult?> HandleAsync(
         GetMusicalProjectByIdQuery query,
         CancellationToken cancellationToken = default)
     {

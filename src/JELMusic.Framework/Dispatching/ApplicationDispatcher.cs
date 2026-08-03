@@ -1,7 +1,7 @@
 using JELMusic.Application.Abstractions.Dispatching;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace JELMusic.Infrastructure.Dispatching;
+namespace JELMusic.Framework.Dispatching;
 
 public sealed class ApplicationDispatcher : IApplicationDispatcher
 {
