@@ -2,11 +2,13 @@ namespace JELMusic.Application.Abstractions.Dispatching;
 
 public interface IApplicationDispatcher
 {
-    Task<TResult> SendAsync<TResult>(
-        ICommand<TResult> command,
-        CancellationToken cancellationToken = default);
+    Task<TResult> SendCommandAsync<TCommand, TResult>(
+        TCommand command,
+        CancellationToken cancellationToken = default)
+        where TCommand : ICommand<TResult>;
 
-    Task<TResult> SendAsync<TResult>(
-        IQuery<TResult> query,
-        CancellationToken cancellationToken = default);
+    Task<TResult> SendQueryAsync<TQuery, TResult>(
+        TQuery query,
+        CancellationToken cancellationToken = default)
+        where TQuery : IQuery<TResult>;
 }
