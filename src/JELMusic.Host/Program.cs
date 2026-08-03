@@ -7,8 +7,6 @@ using Microsoft.Extensions.Hosting;
 var builder = Host.CreateApplicationBuilder(args);
 
 builder.Services.AddApplication();
-builder.Services.AddInfrastructure(
-    "Data Source=jelmusic-core.db");
 
 builder.Services.AddInfrastructure(
     "Data Source=jelmusic-core.db");
