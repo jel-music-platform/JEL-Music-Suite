@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\JELMusic.Domain\JELMusic.Domain.csproj" />
+    <ProjectReference Include="..\JELMusic.Application.Abstractions\JELMusic.Application.Abstractions.csproj" />
   </ItemGroup>
 
   <ItemGroup>
