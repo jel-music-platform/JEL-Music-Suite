@@ -41,7 +41,7 @@ public class MusicalProject
         ProjectVersion = 1;
     }
 
-    public MusicalProject(
+    private MusicalProject(
         string name,
         string genre,
         string description,
@@ -67,5 +67,18 @@ public class MusicalProject
         CreatedAt = DateTime.UtcNow;
         Status = ProjectStatus.Draft;
         ProjectVersion = 1;
+    }
+
+    public static MusicalProject Create(
+        string name,
+        string genre,
+        string description,
+        MusicalDNA dna)
+    {
+        return new MusicalProject(
+            name,
+            genre,
+            description,
+            dna);
     }
 }

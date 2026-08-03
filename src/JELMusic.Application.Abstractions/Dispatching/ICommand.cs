@@ -1,5 +1,5 @@
 namespace JELMusic.Application.Abstractions.Dispatching;
 
-public interface ICommand<TResult>
+public interface ICommand<TResult> : IRequest<TResult>
 {
 }

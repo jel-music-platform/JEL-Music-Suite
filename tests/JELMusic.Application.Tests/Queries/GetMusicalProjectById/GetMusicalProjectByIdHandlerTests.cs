@@ -21,7 +21,7 @@ public class GetMusicalProjectByIdHandlerTests
                 74,
                 "Tenor"));
 
-        var project = new MusicalProject(
+        var project = MusicalProject.Create(
             "Proyecto prueba",
             "Worship",
             "Descripción",
