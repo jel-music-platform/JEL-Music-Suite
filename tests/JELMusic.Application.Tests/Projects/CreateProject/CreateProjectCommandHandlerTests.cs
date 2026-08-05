@@ -1,4 +1,5 @@
 using JELMusic.Application.Projects.CreateProject;
+using JELMusic.Application.Tests.Fakes;
 using JELMusic.Domain.ValueObjects;
 using JELMusic.Domain.ValueObjects.MusicalKnowledge;
 
@@ -9,7 +10,12 @@ public class CreateProjectCommandHandlerTests
     [Fact]
     public async Task Should_return_project_id_when_command_is_valid()
     {
-        var handler = new CreateProjectCommandHandler();
+        var repository = new FakeMusicalProjectRepository();
+        var unitOfWork = new FakeUnitOfWork();
+
+        var handler = new CreateProjectCommandHandler(
+            repository,
+            unitOfWork);
 
         var musicalDNA = new MusicalDNA(
             Array.Empty<InfluenceProfile>(),
@@ -28,12 +34,19 @@ public class CreateProjectCommandHandlerTests
         var result = await handler.HandleAsync(command);
 
         Assert.NotEqual(Guid.Empty, result);
+        Assert.Single(repository.Projects);
+        Assert.True(unitOfWork.Saved);
     }
 
     [Fact]
     public async Task Should_throw_when_command_is_null()
     {
-        var handler = new CreateProjectCommandHandler();
+        var repository = new FakeMusicalProjectRepository();
+        var unitOfWork = new FakeUnitOfWork();
+
+        var handler = new CreateProjectCommandHandler(
+            repository,
+            unitOfWork);
 
         await Assert.ThrowsAsync<ArgumentNullException>(
             () => handler.HandleAsync(null!));
