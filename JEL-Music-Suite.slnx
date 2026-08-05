@@ -10,5 +10,6 @@
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/JELMusic.Application.Tests/JELMusic.Application.Tests.csproj" />
+    <Project Path="tests/JELMusic.Infrastructure.Tests/JELMusic.Infrastructure.Tests.csproj" />
   </Folder>
 </Solution>

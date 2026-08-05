@@ -51,10 +51,11 @@ public static class MusicalProjectBuilder
             performance,
             style);
 
-        return new MusicalProject(
-            name: "Proyecto Test",
-            genre: "Folk",
-            description: "Proyecto de integración",
-            dna: dna);
+       return MusicalProject.Create(
+           name: "Proyecto Test",
+           genre: "Folk",
+           description: "Proyecto de integraciÃ³n",        
+           dna: dna);
+        
     }
 }

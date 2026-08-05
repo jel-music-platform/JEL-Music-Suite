@@ -5,9 +5,8 @@ namespace JELMusic.Domain.ValueObjects;
 
 public sealed class MusicalDNA : ValueObject
 {
-    public IReadOnlyCollection<InfluenceProfile> InfluenceProfiles { get; }
-
-    public IReadOnlyCollection<InstrumentProfile> InstrumentProfiles { get; }
+    public ICollection<InfluenceProfile> InfluenceProfiles { get; private set; }
+    public ICollection<InstrumentProfile> InstrumentProfiles { get; private set; }
 
     public MusicalStyleProfile? Style { get; }
 
@@ -15,9 +14,9 @@ public sealed class MusicalDNA : ValueObject
 
     private MusicalDNA()
     {
-        InfluenceProfiles = Array.Empty<InfluenceProfile>();
+       InfluenceProfiles = new List<InfluenceProfile>();
 
-        InstrumentProfiles = Array.Empty<InstrumentProfile>();
+       InstrumentProfiles = new List<InstrumentProfile>(); 
 
         Performance = new PerformanceProfile(
             string.Empty,
@@ -37,13 +36,9 @@ public sealed class MusicalDNA : ValueObject
         ArgumentNullException.ThrowIfNull(instrumentProfiles);
         ArgumentNullException.ThrowIfNull(performance);
 
-        InfluenceProfiles = influenceProfiles
-            .ToList()
-            .AsReadOnly();
+        InfluenceProfiles = influenceProfiles.ToList();
 
-        InstrumentProfiles = instrumentProfiles
-            .ToList()
-            .AsReadOnly();
+        InstrumentProfiles = instrumentProfiles.ToList();
 
         Performance = performance;
 
