@@ -36,9 +36,11 @@ public sealed class MusicalProjectRepository : IMusicalProjectRepository
     }
 
     public void Update(MusicalProject project)
-    {
+{
+        ArgumentNullException.ThrowIfNull(project);
+
         _context.MusicalProjects.Update(project);
-    }
+}
 
     public void Remove(MusicalProject project)
     {

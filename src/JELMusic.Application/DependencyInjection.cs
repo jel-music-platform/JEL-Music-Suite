@@ -1,5 +1,6 @@
 using JELMusic.Application.Abstractions.Dispatching;
 using JELMusic.Application.Projects.CreateProject;
+using JELMusic.Application.Projects.UpdateProject;
 using JELMusic.Application.Queries.GetMusicalProjectById;
 using JELMusic.Domain.Services;
 using Microsoft.Extensions.DependencyInjection;
@@ -21,7 +22,12 @@ public static class DependencyInjection
 
         services.AddScoped<
             IMusicalProjectFactory,
-            MusicalProjectFactory>();  
+            MusicalProjectFactory>(); 
+
+       services.AddScoped<
+           ICommandHandler<UpdateProjectCommand, UpdateProjectResult>,
+           UpdateProjectCommandHandler>();
+
 
         return services;
     }

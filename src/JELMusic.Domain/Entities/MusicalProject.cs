@@ -13,6 +13,31 @@ public class MusicalProject
     public string Genre { get; private set; }
 
     public string Description { get; private set; }
+    public void Update(
+    string name,
+    string genre,
+    string description,
+    MusicalDNA dna)
+{
+    if (string.IsNullOrWhiteSpace(name))
+        throw new ArgumentException(
+            "Project name cannot be empty.",
+            nameof(name));
+
+    if (string.IsNullOrWhiteSpace(genre))
+        throw new ArgumentException(
+            "Project genre cannot be empty.",
+            nameof(genre));
+
+    ArgumentNullException.ThrowIfNull(dna);
+
+    Name = name;
+    Genre = genre;
+    Description = description;
+    DNA = dna;
+
+    ProjectVersion++;
+}
 
     public DateTime CreatedAt { get; private set; }
 
