@@ -11,7 +11,7 @@ public sealed class CreateProjectCommandHandler
     {
         ArgumentNullException.ThrowIfNull(command);
 
-        // Implementación temporal.
+        // Implementación temporal de BUILD-0025.
         return Task.FromResult(Guid.NewGuid());
     }
 }

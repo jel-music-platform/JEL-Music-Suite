@@ -1,6 +1,6 @@
 namespace JELMusic.Application.Abstractions.Dispatching;
 
-public interface ICommandHandler<in TCommand, TResult>
+public interface ICommandHandler<TCommand, TResult>
     where TCommand : ICommand<TResult>
 {
     Task<TResult> HandleAsync(
