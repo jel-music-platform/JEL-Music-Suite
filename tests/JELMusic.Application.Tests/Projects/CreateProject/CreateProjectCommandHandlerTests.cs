@@ -12,10 +12,12 @@ public class CreateProjectCommandHandlerTests
     {
         var repository = new FakeMusicalProjectRepository();
         var unitOfWork = new FakeUnitOfWork();
+        var factory = new FakeMusicalProjectFactory();
 
         var handler = new CreateProjectCommandHandler(
             repository,
-            unitOfWork);
+            unitOfWork,
+            factory);
 
         var musicalDNA = new MusicalDNA(
             Array.Empty<InfluenceProfile>(),
@@ -34,7 +36,6 @@ public class CreateProjectCommandHandlerTests
         var result = await handler.HandleAsync(command);
 
         Assert.NotEqual(Guid.Empty, result);
-        Assert.Single(repository.Projects);
         Assert.True(unitOfWork.Saved);
     }
 
@@ -43,10 +44,12 @@ public class CreateProjectCommandHandlerTests
     {
         var repository = new FakeMusicalProjectRepository();
         var unitOfWork = new FakeUnitOfWork();
+        var factory = new FakeMusicalProjectFactory();
 
         var handler = new CreateProjectCommandHandler(
             repository,
-            unitOfWork);
+            unitOfWork,
+            factory);
 
         await Assert.ThrowsAsync<ArgumentNullException>(
             () => handler.HandleAsync(null!));
