@@ -1,6 +1,8 @@
 using JELMusic.Application;
 using JELMusic.Application.Abstractions.Dispatching;
 using JELMusic.Application.Projects.CreateProject;
+using JELMusic.Application.Projects.UpdateProject;
+using JELMusic.Application.Queries.GetMusicalProjectById;
 using JELMusic.Application.Tests.Fakes;
 using JELMusic.Domain.Repositories;
 using JELMusic.Domain.Services;
@@ -11,22 +13,33 @@ namespace JELMusic.Application.Tests.Composition;
 public class DependencyInjectionTests
 {
     [Fact]
-    public void Should_register_create_project_handler()
+    public void Should_register_application_services()
     {
         var services = new ServiceCollection();
 
         services.AddScoped<IMusicalProjectRepository, FakeMusicalProjectRepository>();
         services.AddScoped<IUnitOfWork, FakeUnitOfWork>();
-        services.AddScoped<IMusicalProjectFactory, FakeMusicalProjectFactory>();
 
         services.AddApplication();
 
         using var provider = services.BuildServiceProvider();
 
-        var handler = provider.GetService<
+        var createHandler = provider.GetRequiredService<
             ICommandHandler<CreateProjectCommand, Guid>>();
 
-        Assert.NotNull(handler);
-        Assert.IsType<CreateProjectCommandHandler>(handler);
+        var updateHandler = provider.GetRequiredService<
+            ICommandHandler<UpdateProjectCommand, UpdateProjectResult>>();
+
+        var queryHandler = provider.GetRequiredService<
+            IQueryHandler<
+                GetMusicalProjectByIdQuery,
+                GetMusicalProjectByIdResult>>();
+
+        var factory = provider.GetRequiredService<IMusicalProjectFactory>();
+
+        Assert.IsType<CreateProjectCommandHandler>(createHandler);
+        Assert.IsType<UpdateProjectCommandHandler>(updateHandler);
+        Assert.IsType<GetMusicalProjectByIdHandler>(queryHandler);
+        Assert.IsType<MusicalProjectFactory>(factory);
     }
 }
