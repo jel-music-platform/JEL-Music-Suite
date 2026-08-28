@@ -1,4 +1,4 @@
-using JELMusic.Application.Abstractions.Dispatching;
+﻿using JELMusic.Application.Abstractions.Dispatching;
 using JELMusic.Domain.Repositories;
 
 namespace JELMusic.Application.Queries.GetMusicalProjectById;
@@ -18,6 +18,8 @@ public sealed class GetMusicalProjectByIdHandler
         GetMusicalProjectByIdQuery query,
         CancellationToken cancellationToken = default)
     {
+        ArgumentNullException.ThrowIfNull(query);
+
         var project = await _repository.GetByIdAsync(
             query.ProjectId,
             cancellationToken);
