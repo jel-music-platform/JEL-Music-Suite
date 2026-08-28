@@ -6,16 +6,24 @@ namespace JELMusic.Application.Tests.Fakes;
 
 public sealed class FakeMusicalProjectFactory : IMusicalProjectFactory
 {
+    public int CreateCallCount { get; private set; }
+
+    public MusicalProject? CreatedProject { get; private set; }
+
     public MusicalProject Create(
         string name,
         string genre,
         string description,
         MusicalDNA musicalDNA)
     {
-        return MusicalProject.Create(
+        CreateCallCount++;
+
+        CreatedProject = MusicalProject.Create(
             name,
             genre,
             description,
             musicalDNA);
+
+        return CreatedProject;
     }
 }

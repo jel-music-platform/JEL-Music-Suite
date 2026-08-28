@@ -1,4 +1,4 @@
-﻿using JELMusic.Application.Projects.CreateProject;
+using JELMusic.Application.Projects.CreateProject;
 using JELMusic.Application.Tests.Fakes;
 using JELMusic.Domain.ValueObjects;
 using JELMusic.Domain.ValueObjects.MusicalKnowledge;
@@ -36,6 +36,13 @@ public class CreateProjectCommandHandlerTests
         var result = await handler.HandleAsync(command);
 
         Assert.NotEqual(Guid.Empty, result);
+
+        Assert.Equal(1, factory.CreateCallCount);
+        Assert.NotNull(factory.CreatedProject);
+        Assert.Equal(command.Name, factory.CreatedProject!.Name);
+        Assert.Equal(command.Genre, factory.CreatedProject.Genre);
+        Assert.Equal(command.Description, factory.CreatedProject.Description);
+
         Assert.True(unitOfWork.Saved);
 
         Assert.Single(repository.Projects);
