@@ -7,6 +7,7 @@ using JELMusic.Infrastructure.Persistence;
 using JELMusic.Infrastructure.Tests.TestData;
 using Microsoft.Data.Sqlite;
 using Microsoft.Extensions.DependencyInjection;
+using JELMusic.Framework;
 
 namespace JELMusic.Infrastructure.Tests.Dispatching;
 
@@ -18,6 +19,7 @@ public class GetMusicalProjectByIdDispatcherTests
         var services = new ServiceCollection();
 
         services.AddApplication();
+        services.AddJELMusicFramework();
 
         var connection = new SqliteConnection(
             $"Data Source={Guid.NewGuid()};Mode=Memory;Cache=Shared");

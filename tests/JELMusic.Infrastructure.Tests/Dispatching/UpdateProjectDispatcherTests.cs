@@ -8,6 +8,7 @@ using JELMusic.Infrastructure.Persistence;
 using JELMusic.Infrastructure.Tests.TestData;
 using Microsoft.Data.Sqlite;
 using Microsoft.Extensions.DependencyInjection;
+using JELMusic.Framework;
 
 namespace JELMusic.Infrastructure.Tests.Dispatching;
 
@@ -19,6 +20,7 @@ public class UpdateProjectDispatcherTests
         var services = new ServiceCollection();
 
         services.AddApplication();
+        services.AddJELMusicFramework();
 
         var connection = new SqliteConnection(
             "Data Source=UpdateProjectTest;Mode=Memory;Cache=Shared");
@@ -42,7 +44,7 @@ public class UpdateProjectDispatcherTests
         var createCommand = new CreateProjectCommand(
             "Proyecto inicial",
             "Pop",
-            "Descripción inicial",
+            "DescripciÃ³n inicial",
             CreateProjectTestData.CreateDNA());
 
         var projectId =
@@ -53,7 +55,7 @@ public class UpdateProjectDispatcherTests
             projectId,
             "Proyecto actualizado",
             "Worship",
-            "Descripción actualizada",
+            "DescripciÃ³n actualizada",
             CreateProjectTestData.CreateDNA());
 
         var result =
@@ -74,7 +76,7 @@ public class UpdateProjectDispatcherTests
         Assert.NotNull(project);
         Assert.Equal("Proyecto actualizado", project!.Name);
         Assert.Equal("Worship", project.Genre);
-        Assert.Equal("Descripción actualizada", project.Description);
+        Assert.Equal("DescripciÃ³n actualizada", project.Description);
 
         connection.Dispose();
     }

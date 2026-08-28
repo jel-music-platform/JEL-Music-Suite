@@ -22,12 +22,11 @@ public static class DependencyInjection
 
         services.AddScoped<
             IMusicalProjectFactory,
-            MusicalProjectFactory>(); 
+            MusicalProjectFactory>();
 
-       services.AddScoped<
-           ICommandHandler<UpdateProjectCommand, UpdateProjectResult>,
-           UpdateProjectCommandHandler>();
-
+        services.AddScoped<
+            ICommandHandler<UpdateProjectCommand, UpdateProjectResult>,
+            UpdateProjectCommandHandler>();
 
         return services;
     }
