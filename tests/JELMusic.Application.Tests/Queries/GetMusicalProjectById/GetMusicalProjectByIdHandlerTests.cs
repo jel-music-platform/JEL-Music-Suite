@@ -53,4 +53,15 @@ public class GetMusicalProjectByIdHandlerTests
 
         Assert.Null(result);
     }
+
+    [Fact]
+    public async Task Should_throw_when_query_is_null()
+    {
+        var repository = new FakeMusicalProjectRepository();
+
+        var handler = new GetMusicalProjectByIdHandler(repository);
+
+        await Assert.ThrowsAsync<ArgumentNullException>(
+            () => handler.HandleAsync(null!));
+    }
 }
