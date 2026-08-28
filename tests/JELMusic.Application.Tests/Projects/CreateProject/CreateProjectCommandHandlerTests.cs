@@ -1,4 +1,4 @@
-using JELMusic.Application.Projects.CreateProject;
+﻿using JELMusic.Application.Projects.CreateProject;
 using JELMusic.Application.Tests.Fakes;
 using JELMusic.Domain.ValueObjects;
 using JELMusic.Domain.ValueObjects.MusicalKnowledge;
@@ -37,6 +37,15 @@ public class CreateProjectCommandHandlerTests
 
         Assert.NotEqual(Guid.Empty, result);
         Assert.True(unitOfWork.Saved);
+
+        Assert.Single(repository.Projects);
+
+        var project = repository.Projects[0];
+
+        Assert.Equal(result, project.Id);
+        Assert.Equal("Proyecto prueba", project.Name);
+        Assert.Equal("Pop", project.Genre);
+        Assert.Equal("Descripción de prueba", project.Description);
     }
 
     [Fact]

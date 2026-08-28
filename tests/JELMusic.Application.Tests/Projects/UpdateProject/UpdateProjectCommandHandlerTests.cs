@@ -60,4 +60,54 @@ public class UpdateProjectCommandHandlerTests
         await unitOfWork.Received(1)
             .SaveChangesAsync(Arg.Any<CancellationToken>());
     }
+
+    [Fact]
+    public async Task Should_throw_when_command_is_null()
+    {
+        var repository = Substitute.For<IMusicalProjectRepository>();
+        var unitOfWork = Substitute.For<IUnitOfWork>();
+
+        var handler = new UpdateProjectCommandHandler(
+            repository,
+            unitOfWork);
+
+        await Assert.ThrowsAsync<ArgumentNullException>(
+            () => handler.HandleAsync(null!));
+    }
+
+    [Fact]
+    public async Task Should_throw_when_project_does_not_exist()
+    {
+        var repository = Substitute.For<IMusicalProjectRepository>();
+        var unitOfWork = Substitute.For<IUnitOfWork>();
+
+        var projectId = Guid.NewGuid();
+
+        repository.GetByIdAsync(
+            projectId,
+            Arg.Any<CancellationToken>())
+            .Returns((MusicalProject?)null);
+
+        var handler = new UpdateProjectCommandHandler(
+            repository,
+            unitOfWork);
+
+        var dna = new MusicalDNA(
+            Array.Empty<InfluenceProfile>(),
+            Array.Empty<InstrumentProfile>(),
+            new PerformanceProfile(
+                "Piano",
+                90,
+                "Soft"));
+
+        var command = new UpdateProjectCommand(
+            projectId,
+            "New name",
+            "Worship",
+            "New description",
+            dna);
+
+        await Assert.ThrowsAsync<InvalidOperationException>(
+            () => handler.HandleAsync(command));
+    }
 }
