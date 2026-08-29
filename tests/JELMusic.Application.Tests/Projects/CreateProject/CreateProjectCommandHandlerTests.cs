@@ -56,6 +56,46 @@ public class CreateProjectCommandHandlerTests
     }
 
     [Fact]
+    public async Task Should_propagate_cancellation_token()
+    {
+        var repository = new FakeMusicalProjectRepository();
+        var unitOfWork = new FakeUnitOfWork();
+        var factory = new FakeMusicalProjectFactory();
+
+        var handler = new CreateProjectCommandHandler(
+            repository,
+            unitOfWork,
+            factory);
+
+        var musicalDNA = new MusicalDNA(
+            Array.Empty<InfluenceProfile>(),
+            Array.Empty<InstrumentProfile>(),
+            new PerformanceProfile(
+                "Neutral",
+                120,
+                "Instrumental"));
+
+        var command = new CreateProjectCommand(
+            "Proyecto prueba",
+            "Pop",
+            "Descripción de prueba",
+            musicalDNA);
+
+        using var cancellationTokenSource = new CancellationTokenSource();
+        var cancellationToken = cancellationTokenSource.Token;
+
+        await handler.HandleAsync(command, cancellationToken);
+
+        Assert.Equal(
+            cancellationToken,
+            repository.LastCancellationToken);
+
+        Assert.Equal(
+            cancellationToken,
+            unitOfWork.LastCancellationToken);
+    }
+
+    [Fact]
     public async Task Should_throw_when_command_is_null()
     {
         var repository = new FakeMusicalProjectRepository();
