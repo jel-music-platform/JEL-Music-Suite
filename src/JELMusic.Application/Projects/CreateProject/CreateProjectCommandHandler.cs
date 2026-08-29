@@ -1,6 +1,6 @@
 using JELMusic.Application.Abstractions.Dispatching;
+using JELMusic.Domain.Entities;
 using JELMusic.Domain.Repositories;
-using JELMusic.Domain.Services;
 
 namespace JELMusic.Application.Projects.CreateProject;
 
@@ -9,16 +9,13 @@ public sealed class CreateProjectCommandHandler
 {
     private readonly IMusicalProjectRepository _repository;
     private readonly IUnitOfWork _unitOfWork;
-    private readonly IMusicalProjectFactory _factory;
 
     public CreateProjectCommandHandler(
         IMusicalProjectRepository repository,
-        IUnitOfWork unitOfWork,
-        IMusicalProjectFactory factory)
+        IUnitOfWork unitOfWork)
     {
         _repository = repository;
         _unitOfWork = unitOfWork;
-        _factory = factory;
     }
 
     public async Task<Guid> HandleAsync(
@@ -27,7 +24,7 @@ public sealed class CreateProjectCommandHandler
     {
         ArgumentNullException.ThrowIfNull(command);
 
-        var project = _factory.Create(
+        var project = MusicalProject.Create(
             command.Name,
             command.Genre,
             command.Description,

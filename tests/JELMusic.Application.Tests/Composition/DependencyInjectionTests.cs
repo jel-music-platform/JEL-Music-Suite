@@ -5,7 +5,6 @@ using JELMusic.Application.Projects.UpdateProject;
 using JELMusic.Application.Queries.GetMusicalProjectById;
 using JELMusic.Application.Tests.Fakes;
 using JELMusic.Domain.Repositories;
-using JELMusic.Domain.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace JELMusic.Application.Tests.Composition;
@@ -35,11 +34,8 @@ public class DependencyInjectionTests
                 GetMusicalProjectByIdQuery,
                 GetMusicalProjectByIdResult>>();
 
-        var factory = provider.GetRequiredService<IMusicalProjectFactory>();
-
         Assert.IsType<CreateProjectCommandHandler>(createHandler);
         Assert.IsType<UpdateProjectCommandHandler>(updateHandler);
         Assert.IsType<GetMusicalProjectByIdHandler>(queryHandler);
-        Assert.IsType<MusicalProjectFactory>(factory);
     }
 }

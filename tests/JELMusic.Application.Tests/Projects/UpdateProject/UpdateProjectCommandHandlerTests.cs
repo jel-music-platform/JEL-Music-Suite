@@ -1,7 +1,6 @@
 using JELMusic.Application.Projects.UpdateProject;
 using JELMusic.Domain.Entities;
 using JELMusic.Domain.Repositories;
-using JELMusic.Domain.Services;
 using JELMusic.Domain.ValueObjects;
 using JELMusic.Domain.ValueObjects.MusicalKnowledge;
 using NSubstitute;
@@ -16,8 +15,6 @@ public class UpdateProjectCommandHandlerTests
         var repository = Substitute.For<IMusicalProjectRepository>();
         var unitOfWork = Substitute.For<IUnitOfWork>();
 
-        var factory = new MusicalProjectFactory();
-
         var dna = new MusicalDNA(
             Array.Empty<InfluenceProfile>(),
             Array.Empty<InstrumentProfile>(),
@@ -26,7 +23,7 @@ public class UpdateProjectCommandHandlerTests
                 90,
                 "Soft"));
 
-        var project = factory.Create(
+        var project = MusicalProject.Create(
             "Old name",
             "Pop",
             "Old description",

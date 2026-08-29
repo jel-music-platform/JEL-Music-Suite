@@ -12,12 +12,10 @@ public class CreateProjectCommandHandlerTests
     {
         var repository = new FakeMusicalProjectRepository();
         var unitOfWork = new FakeUnitOfWork();
-        var factory = new FakeMusicalProjectFactory();
 
         var handler = new CreateProjectCommandHandler(
             repository,
-            unitOfWork,
-            factory);
+            unitOfWork);
 
         var musicalDNA = new MusicalDNA(
             Array.Empty<InfluenceProfile>(),
@@ -30,18 +28,12 @@ public class CreateProjectCommandHandlerTests
         var command = new CreateProjectCommand(
             "Proyecto prueba",
             "Pop",
-            "Descripción de prueba",
+            "Descripci�n de prueba",
             musicalDNA);
 
         var result = await handler.HandleAsync(command);
 
         Assert.NotEqual(Guid.Empty, result);
-
-        Assert.Equal(1, factory.CreateCallCount);
-        Assert.NotNull(factory.CreatedProject);
-        Assert.Equal(command.Name, factory.CreatedProject!.Name);
-        Assert.Equal(command.Genre, factory.CreatedProject.Genre);
-        Assert.Equal(command.Description, factory.CreatedProject.Description);
 
         Assert.True(unitOfWork.Saved);
 
@@ -50,9 +42,10 @@ public class CreateProjectCommandHandlerTests
         var project = repository.Projects[0];
 
         Assert.Equal(result, project.Id);
-        Assert.Equal("Proyecto prueba", project.Name);
-        Assert.Equal("Pop", project.Genre);
-        Assert.Equal("Descripción de prueba", project.Description);
+        Assert.Equal(command.Name, project.Name);
+        Assert.Equal(command.Genre, project.Genre);
+        Assert.Equal(command.Description, project.Description);
+        Assert.Equal(command.MusicalDNA, project.DNA);
     }
 
     [Fact]
@@ -60,12 +53,10 @@ public class CreateProjectCommandHandlerTests
     {
         var repository = new FakeMusicalProjectRepository();
         var unitOfWork = new FakeUnitOfWork();
-        var factory = new FakeMusicalProjectFactory();
 
         var handler = new CreateProjectCommandHandler(
             repository,
-            unitOfWork,
-            factory);
+            unitOfWork);
 
         var musicalDNA = new MusicalDNA(
             Array.Empty<InfluenceProfile>(),
@@ -78,7 +69,7 @@ public class CreateProjectCommandHandlerTests
         var command = new CreateProjectCommand(
             "Proyecto prueba",
             "Pop",
-            "Descripción de prueba",
+            "Descripci�n de prueba",
             musicalDNA);
 
         using var cancellationTokenSource = new CancellationTokenSource();
@@ -100,12 +91,10 @@ public class CreateProjectCommandHandlerTests
     {
         var repository = new FakeMusicalProjectRepository();
         var unitOfWork = new FakeUnitOfWork();
-        var factory = new FakeMusicalProjectFactory();
 
         var handler = new CreateProjectCommandHandler(
             repository,
-            unitOfWork,
-            factory);
+            unitOfWork);
 
         await Assert.ThrowsAsync<ArgumentNullException>(
             () => handler.HandleAsync(null!));
