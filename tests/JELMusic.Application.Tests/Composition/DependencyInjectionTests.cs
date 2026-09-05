@@ -22,14 +22,26 @@ public class DependencyInjectionTests
         services.AddApplication();
 
         using var provider = services.BuildServiceProvider();
+        using var scope = provider.CreateScope();
 
-        var createHandler = provider.GetRequiredService<
+        var createHandler = scope.ServiceProvider.GetRequiredService<
             ICommandHandler<CreateProjectCommand, Guid>>();
 
-        var updateHandler = provider.GetRequiredService<
+        var updateHandler = scope.ServiceProvider.GetRequiredService<
             ICommandHandler<UpdateProjectCommand, UpdateProjectResult>>();
 
-        var queryHandler = provider.GetRequiredService<
+        var queryHandler = scope.ServiceProvider.GetRequiredService<
+            IQueryHandler<
+                GetMusicalProjectByIdQuery,
+                GetMusicalProjectByIdResult>>();
+
+        var createHandlerAgain = scope.ServiceProvider.GetRequiredService<
+            ICommandHandler<CreateProjectCommand, Guid>>();
+
+        var updateHandlerAgain = scope.ServiceProvider.GetRequiredService<
+            ICommandHandler<UpdateProjectCommand, UpdateProjectResult>>();
+
+        var queryHandlerAgain = scope.ServiceProvider.GetRequiredService<
             IQueryHandler<
                 GetMusicalProjectByIdQuery,
                 GetMusicalProjectByIdResult>>();
@@ -37,5 +49,9 @@ public class DependencyInjectionTests
         Assert.IsType<CreateProjectCommandHandler>(createHandler);
         Assert.IsType<UpdateProjectCommandHandler>(updateHandler);
         Assert.IsType<GetMusicalProjectByIdHandler>(queryHandler);
+
+        Assert.Same(createHandler, createHandlerAgain);
+        Assert.Same(updateHandler, updateHandlerAgain);
+        Assert.Same(queryHandler, queryHandlerAgain);
     }
 }
