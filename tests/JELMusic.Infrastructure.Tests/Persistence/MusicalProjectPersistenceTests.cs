@@ -1,5 +1,6 @@
 using System.Linq;
 using JELMusic.Infrastructure.Tests.Builders;
+using JELMusic.Domain.Enums;
 using JELMusic.Infrastructure.Tests.Infrastructure;
 using Xunit;
 
@@ -31,6 +32,7 @@ public sealed class MusicalProjectPersistenceTests
 
         Assert.NotNull(loaded.DNA.Style);
         Assert.Equal("Folk Vasco", loaded.DNA.Style!.Name);
+        Assert.Equal(MusicalGenre.Folk, loaded.DNA.Style!.Genre);
 
         Assert.NotNull(loaded.DNA.Performance);
         Assert.Equal(90, loaded.DNA.Performance.TempoBpm);
