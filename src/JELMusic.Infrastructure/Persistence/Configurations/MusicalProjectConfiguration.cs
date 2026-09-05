@@ -129,6 +129,9 @@ public sealed class MusicalProjectConfiguration
 
             dna.OwnsOne(x => x.Style, style =>
             {
+                style.Property(x => x.Genre)
+                    .HasColumnName("StyleGenre");
+
                 style.Property(x => x.Name)
                     .HasColumnName("StyleName")
                     .HasMaxLength(200);
