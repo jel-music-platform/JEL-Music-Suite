@@ -44,7 +44,7 @@ public class UpdateProjectDispatcherTests
         var createCommand = new CreateProjectCommand(
             "Proyecto inicial",
             "Pop",
-            "DescripciÃ³n inicial",
+            "Descripción inicial",
             CreateProjectTestData.CreateDNA());
 
         var projectId =
@@ -55,7 +55,7 @@ public class UpdateProjectDispatcherTests
             projectId,
             "Proyecto actualizado",
             "Worship",
-            "DescripciÃ³n actualizada",
+            "Descripción actualizada",
             CreateProjectTestData.CreateDNA());
 
         var result =
@@ -76,7 +76,7 @@ public class UpdateProjectDispatcherTests
         Assert.NotNull(project);
         Assert.Equal("Proyecto actualizado", project!.Name);
         Assert.Equal("Worship", project.Genre);
-        Assert.Equal("DescripciÃ³n actualizada", project.Description);
+        Assert.Equal("Descripción actualizada", project.Description);
 
         connection.Dispose();
     }
