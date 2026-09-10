@@ -1,8 +1,9 @@
-using JELMusic.Application;
+﻿using JELMusic.Application;
 using JELMusic.Application.Abstractions.Dispatching;
 using JELMusic.Application.Projects.CreateProject;
 using JELMusic.Application.Projects.UpdateProject;
 using JELMusic.Application.Queries.GetMusicalProjectById;
+using JELMusic.Application.Queries.ListMusicalProjects;
 using JELMusic.Application.Tests.Fakes;
 using JELMusic.Domain.Repositories;
 using Microsoft.Extensions.DependencyInjection;
@@ -35,6 +36,11 @@ public class DependencyInjectionTests
                 GetMusicalProjectByIdQuery,
                 GetMusicalProjectByIdResult>>();
 
+        var listHandler = scope.ServiceProvider.GetRequiredService<
+            IQueryHandler<
+                ListMusicalProjectsQuery,
+                ListMusicalProjectsResult>>();
+
         var createHandlerAgain = scope.ServiceProvider.GetRequiredService<
             ICommandHandler<CreateProjectCommand, Guid>>();
 
@@ -46,12 +52,19 @@ public class DependencyInjectionTests
                 GetMusicalProjectByIdQuery,
                 GetMusicalProjectByIdResult>>();
 
+        var listHandlerAgain = scope.ServiceProvider.GetRequiredService<
+            IQueryHandler<
+                ListMusicalProjectsQuery,
+                ListMusicalProjectsResult>>();
+
         Assert.IsType<CreateProjectCommandHandler>(createHandler);
         Assert.IsType<UpdateProjectCommandHandler>(updateHandler);
         Assert.IsType<GetMusicalProjectByIdHandler>(queryHandler);
+        Assert.IsType<ListMusicalProjectsHandler>(listHandler);
 
         Assert.Same(createHandler, createHandlerAgain);
         Assert.Same(updateHandler, updateHandlerAgain);
         Assert.Same(queryHandler, queryHandlerAgain);
+        Assert.Same(listHandler, listHandlerAgain);
     }
 }

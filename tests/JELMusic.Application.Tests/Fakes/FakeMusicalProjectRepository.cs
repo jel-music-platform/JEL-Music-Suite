@@ -22,6 +22,8 @@ public sealed class FakeMusicalProjectRepository
     public Task<IReadOnlyList<MusicalProject>> GetAllAsync(
         CancellationToken cancellationToken = default)
     {
+        LastCancellationToken = cancellationToken;
+
         return Task.FromResult<IReadOnlyList<MusicalProject>>(Projects);
     }
 
