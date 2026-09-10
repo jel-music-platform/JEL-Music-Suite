@@ -54,7 +54,7 @@ public static class MusicalProjectBuilder
        return MusicalProject.Create(
            name: "Proyecto Test",
            genre: "Folk",
-           description: "Proyecto de integraciÃ³n",        
+           description: "Proyecto de integración",
            dna: dna);
         
     }
