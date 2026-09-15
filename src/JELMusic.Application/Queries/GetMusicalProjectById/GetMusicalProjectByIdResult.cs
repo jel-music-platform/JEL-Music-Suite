@@ -4,4 +4,5 @@ public sealed record GetMusicalProjectByIdResult(
     Guid ProjectId,
     string Name,
     string Genre,
-    string Description);
+    string Description,
+    MusicalDNAResult MusicalDNA);
