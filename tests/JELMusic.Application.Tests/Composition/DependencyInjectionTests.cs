@@ -19,6 +19,7 @@ public class DependencyInjectionTests
         var services = new ServiceCollection();
 
         services.AddScoped<IMusicalProjectRepository, FakeMusicalProjectRepository>();
+        services.AddScoped<IVideoProjectRepository, FakeVideoProjectRepository>();
         services.AddScoped<IUnitOfWork, FakeUnitOfWork>();
 
         services.AddApplication();

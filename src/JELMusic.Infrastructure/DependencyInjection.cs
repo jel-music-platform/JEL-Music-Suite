@@ -1,4 +1,4 @@
-﻿using JELMusic.Domain.Repositories;
+using JELMusic.Domain.Repositories;
 using JELMusic.Infrastructure.Persistence;
 using JELMusic.Infrastructure.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -16,6 +16,7 @@ public static class DependencyInjection
             options.UseSqlite(connectionString));
 
         services.AddScoped<IMusicalProjectRepository, MusicalProjectRepository>();
+        services.AddScoped<IVideoProjectRepository, VideoProjectRepository>();
         services.AddScoped<IUnitOfWork, CoreUnitOfWork>();
 
         return services;

@@ -1,13 +1,127 @@
-ï»¿<Window x:Class="JELMusic.Studio.MainWindow"
+<Window x:Class="JELMusic.Studio.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="JEL-Music Studio"
-        Width="1000"
-        Height="650">
-    <Grid>
-        <TextBlock Text="JEL-Music Studio"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center"
-                   FontSize="32"/>
+        Width="1100"
+        Height="700"
+        MinWidth="900"
+        MinHeight="600"
+        WindowStartupLocation="CenterScreen">
+
+    <Grid Background="#151515">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="72"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- CABECERA -->
+        <Border Grid.Row="0"
+                Background="#202020"
+                BorderBrush="#303030"
+                BorderThickness="0,0,0,1">
+
+            <Grid Margin="24,0">
+
+                <TextBlock Text="JEL-Music Studio"
+                           VerticalAlignment="Center"
+                           FontSize="26"
+                           FontWeight="SemiBold"
+                           Foreground="White"/>
+
+            </Grid>
+        </Border>
+
+        <!-- CONTENIDO -->
+        <Grid Grid.Row="1">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="220"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- NAVEGACIÓN -->
+            <Border Grid.Column="0"
+                    Background="#1B1B1B"
+                    BorderBrush="#303030"
+                    BorderThickness="0,0,1,0">
+
+                <StackPanel Margin="18,24">
+
+                    <TextBlock Text="PROYECTOS"
+                               FontSize="12"
+                               FontWeight="SemiBold"
+                               Foreground="#888888"
+                               Margin="6,0,0,16"/>
+
+                    <Button Content="Mis proyectos"
+                            Height="42"
+                            HorizontalContentAlignment="Left"
+                            Padding="14,0"
+                            Margin="0,0,0,8"/>
+
+                 <Button Content="Nuevo proyecto de vídeo"
+                         Height="42"
+                         HorizontalContentAlignment="Left"
+                         Padding="14,0"
+                         Click="NewVideoProject_Click"/>
+
+                </StackPanel>
+            </Border>
+
+            <!-- ÁREA PRINCIPAL -->
+            <Grid Grid.Column="1"
+                  Margin="36">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0"
+                           Text="Proyectos de vídeo"
+                           FontSize="30"
+                           FontWeight="SemiBold"
+                           Foreground="White"/>
+
+                <TextBlock Grid.Row="1"
+                           Text="Crea y gestiona tus proyectos audiovisuales de JEL-Music."
+                           FontSize="15"
+                           Foreground="#AAAAAA"
+                           Margin="0,8,0,28"/>
+
+                <Border Grid.Row="2"
+                        Background="#202020"
+                        CornerRadius="8"
+                        Padding="28">
+
+                    <StackPanel>
+
+                        <TextBlock Text="Todavía no hay proyectos"
+                                   FontSize="21"
+                                   FontWeight="SemiBold"
+                                   Foreground="White"
+                                   Margin="0,0,0,8"/>
+
+                        <TextBlock Text="Crea tu primer proyecto de videoclip para empezar."
+                                   FontSize="14"
+                                   Foreground="#AAAAAA"
+                                   Margin="0,0,0,22"/>
+
+                        <Button Content="Nuevo proyecto de vídeo"
+                                Width="210"
+                                Height="44"
+                                HorizontalAlignment="Left"
+                                Click="NewVideoProject_Click"/>
+                    </StackPanel>
+
+                </Border>
+
+            </Grid>
+
+        </Grid>
+
     </Grid>
+
 </Window>

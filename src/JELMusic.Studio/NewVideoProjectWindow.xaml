@@ -1,0 +1,110 @@
+<Window x:Class="JELMusic.Studio.NewVideoProjectWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Nuevo proyecto de vídeo"
+        Width="620"
+        Height="680"
+        MinWidth="560"
+        MinHeight="620"
+        WindowStartupLocation="CenterOwner"
+        Background="#151515">
+
+    <Grid Margin="32">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0"
+                   Text="Nuevo proyecto de vídeo"
+                   FontSize="28"
+                   FontWeight="SemiBold"
+                   Foreground="White"/>
+
+        <TextBlock Grid.Row="1"
+                   Text="Define los datos iniciales de tu proyecto audiovisual."
+                   FontSize="14"
+                   Foreground="#AAAAAA"
+                   Margin="0,8,0,28"/>
+
+        <StackPanel Grid.Row="2"
+                    Margin="0,0,0,18">
+
+            <TextBlock Text="Proyecto musical"
+                       FontSize="14"
+                       Foreground="#CCCCCC"
+                       Margin="0,0,0,7"/>
+
+            <ComboBox x:Name="MusicalProjectComboBox"
+                      Height="40"
+                      FontSize="14"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="3"
+                    Margin="0,0,0,18">
+
+            <TextBlock Text="Nombre del proyecto de vídeo"
+                       FontSize="14"
+                       Foreground="#CCCCCC"
+                       Margin="0,0,0,7"/>
+
+            <TextBox x:Name="NameTextBox"
+                     Height="40"
+                     FontSize="14"
+                     Padding="10,7"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="4">
+
+            <TextBlock Text="Concepto"
+                       FontSize="14"
+                       Foreground="#CCCCCC"
+                       Margin="0,0,0,7"/>
+
+            <TextBox x:Name="ConceptTextBox"
+                     Height="100"
+                     FontSize="14"
+                     Padding="10,7"
+                     AcceptsReturn="True"
+                     TextWrapping="Wrap"
+                     VerticalScrollBarVisibility="Auto"/>
+
+            <TextBlock Text="Duración"
+                       FontSize="14"
+                       Foreground="#CCCCCC"
+                       Margin="0,18,0,7"/>
+
+            <TextBox x:Name="DurationTextBox"
+                     Width="140"
+                     Height="40"
+                     HorizontalAlignment="Left"
+                     FontSize="14"
+                     Padding="10,7"
+                     Text="00:04:28"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="5"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    Margin="0,28,0,0">
+
+            <Button Content="Cancelar"
+                    Width="110"
+                    Height="42"
+                    Margin="0,0,10,0"
+                    Click="Cancel_Click"/>
+
+            <Button Content="Crear proyecto"
+                    Width="140"
+                    Height="42"
+                    Click="CreateVideoProject_Click"/>
+        </StackPanel>
+
+    </Grid>
+
+</Window>

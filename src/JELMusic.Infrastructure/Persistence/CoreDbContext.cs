@@ -6,6 +6,7 @@ namespace JELMusic.Infrastructure.Persistence;
 public sealed class CoreDbContext : DbContext
 {
     public DbSet<MusicalProject> MusicalProjects => Set<MusicalProject>();
+    public DbSet<VideoProject> VideoProjects => Set<VideoProject>();
 
     public CoreDbContext(DbContextOptions<CoreDbContext> options)
         : base(options)

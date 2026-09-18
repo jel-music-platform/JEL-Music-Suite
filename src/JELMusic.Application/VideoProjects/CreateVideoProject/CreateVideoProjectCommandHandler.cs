@@ -1,12 +1,24 @@
-﻿using JELMusic.Application.Abstractions.Dispatching;
+using JELMusic.Application.Abstractions.Dispatching;
 using JELMusic.Domain.Entities;
+using JELMusic.Domain.Repositories;
 
 namespace JELMusic.Application.VideoProjects.CreateVideoProject;
 
 public sealed class CreateVideoProjectCommandHandler
     : ICommandHandler<CreateVideoProjectCommand, Guid>
 {
-    public Task<Guid> HandleAsync(
+    private readonly IVideoProjectRepository _videoProjectRepository;
+    private readonly IUnitOfWork _unitOfWork;
+
+    public CreateVideoProjectCommandHandler(
+        IVideoProjectRepository videoProjectRepository,
+        IUnitOfWork unitOfWork)
+    {
+        _videoProjectRepository = videoProjectRepository;
+        _unitOfWork = unitOfWork;
+    }
+
+    public async Task<Guid> HandleAsync(
         CreateVideoProjectCommand command,
         CancellationToken cancellationToken = default)
     {
@@ -18,6 +30,13 @@ public sealed class CreateVideoProjectCommandHandler
             command.Concept,
             command.Duration);
 
-        return Task.FromResult(videoProject.Id);
+        await _videoProjectRepository.AddAsync(
+            videoProject,
+            cancellationToken);
+
+        await _unitOfWork.SaveChangesAsync(
+            cancellationToken);
+
+        return videoProject.Id;
     }
 }

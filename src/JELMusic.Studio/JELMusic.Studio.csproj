@@ -1,7 +1,15 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿
+<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
+    <ProjectReference Include="..\JELMusic.Application\JELMusic.Application.csproj" />
     <ProjectReference Include="..\JELMusic.Framework\JELMusic.Framework.csproj" />
+    <ProjectReference Include="..\JELMusic.Infrastructure\JELMusic.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.10" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.10" />
   </ItemGroup>
 
   <PropertyGroup>
