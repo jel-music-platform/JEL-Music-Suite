@@ -40,7 +40,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <!-- NAVEGACIÓN -->
+            <!-- NAVEGACIÃ“N -->
             <Border Grid.Column="0"
                     Background="#1B1B1B"
                     BorderBrush="#303030"
@@ -60,16 +60,16 @@
                             Padding="14,0"
                             Margin="0,0,0,8"/>
 
-                 <Button Content="Nuevo proyecto de vídeo"
-                         Height="42"
-                         HorizontalContentAlignment="Left"
-                         Padding="14,0"
-                         Click="NewVideoProject_Click"/>
+                    <Button Content="Nuevo proyecto de vÃ­deo"
+                            Height="42"
+                            HorizontalContentAlignment="Left"
+                            Padding="14,0"
+                            Click="NewVideoProject_Click"/>
 
                 </StackPanel>
             </Border>
 
-            <!-- ÁREA PRINCIPAL -->
+            <!-- ÃREA PRINCIPAL -->
             <Grid Grid.Column="1"
                   Margin="36">
 
@@ -80,7 +80,7 @@
                 </Grid.RowDefinitions>
 
                 <TextBlock Grid.Row="0"
-                           Text="Proyectos de vídeo"
+                           Text="Proyectos de vÃ­deo"
                            FontSize="30"
                            FontWeight="SemiBold"
                            Foreground="White"/>
@@ -91,32 +91,80 @@
                            Foreground="#AAAAAA"
                            Margin="0,8,0,28"/>
 
-                <Border Grid.Row="2"
-                        Background="#202020"
-                        CornerRadius="8"
-                        Padding="28">
+                <!-- LISTADO DE PROYECTOS -->
+                <ListBox x:Name="VideoProjectsListBox"
+                         Grid.Row="2"
+                         Background="Transparent"
+                         BorderThickness="0"
+                         Foreground="White"
+                         HorizontalContentAlignment="Stretch">
 
-                    <StackPanel>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
 
-                        <TextBlock Text="Todavía no hay proyectos"
-                                   FontSize="21"
-                                   FontWeight="SemiBold"
-                                   Foreground="White"
-                                   Margin="0,0,0,8"/>
+                            <Border Background="#202020"
+                                    CornerRadius="8"
+                                    Padding="24"
+                                    Margin="0,0,0,12">
 
-                        <TextBlock Text="Crea tu primer proyecto de videoclip para empezar."
-                                   FontSize="14"
-                                   Foreground="#AAAAAA"
-                                   Margin="0,0,0,22"/>
+                                <Grid>
 
-                        <Button Content="Nuevo proyecto de vídeo"
-                                Width="210"
-                                Height="44"
-                                HorizontalAlignment="Left"
-                                Click="NewVideoProject_Click"/>
-                    </StackPanel>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
 
-                </Border>
+                                    <StackPanel Grid.Column="0">
+
+                                        <TextBlock Text="{Binding Name}"
+                                                   FontSize="21"
+                                                   FontWeight="SemiBold"
+                                                   Foreground="White"/>
+
+                                        <TextBlock Text="{Binding Concept}"
+                                                   FontSize="14"
+                                                   Foreground="#AAAAAA"
+                                                   TextWrapping="Wrap"
+                                                   Margin="0,8,0,14"/>
+
+                                        <StackPanel Orientation="Horizontal">
+
+                                            <TextBlock Text="DuraciÃ³n: "
+                                                       FontSize="13"
+                                                       Foreground="#888888"/>
+
+                                            <TextBlock Text="{Binding Duration}"
+                                                       FontSize="13"
+                                                       Foreground="#CCCCCC"
+                                                       Margin="4,0,20,0"/>
+
+                                            <TextBlock Text="Estado: "
+                                                       FontSize="13"
+                                                       Foreground="#888888"/>
+
+                                            <TextBlock Text="{Binding Status}"
+                                                       FontSize="13"
+                                                       Foreground="#CCCCCC"/>
+
+                                        </StackPanel>
+
+                                    </StackPanel>
+
+                                    <Button Grid.Column="1"
+                                            Content="Abrir"
+                                            Width="90"
+                                            Height="40"
+                                            VerticalAlignment="Center"
+                                            Margin="20,0,0,0"/>
+
+                                </Grid>
+
+                            </Border>
+
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+
+                </ListBox>
 
             </Grid>
 

@@ -105,7 +105,7 @@ public partial class NewVideoProjectWindow : Window
 
             MessageBox.Show(
                 $"Proyecto de vídeo creado correctamente.\n\nId: {projectId}",
-                "JEL-Music Studio",
+                "Proyecto creado",
                 MessageBoxButton.OK,
                 MessageBoxImage.Information);
 

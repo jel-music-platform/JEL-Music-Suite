@@ -1,5 +1,6 @@
-ï»¿using System.Windows;
+using System.Windows;
 using JELMusic.Application.Abstractions.Dispatching;
+using JELMusic.Application.Queries.ListVideoProjects;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace JELMusic.Studio;
@@ -13,9 +14,40 @@ public partial class MainWindow : Window
         InitializeComponent();
 
         _serviceProvider = serviceProvider;
+
+        Loaded += MainWindow_Loaded;
     }
 
-    private void NewVideoProject_Click(
+    private async void MainWindow_Loaded(
+        object sender,
+        RoutedEventArgs e)
+    {
+        try
+        {
+            var dispatcher = _serviceProvider
+                .GetRequiredService<IApplicationDispatcher>();
+
+            var result = await dispatcher.SendQueryAsync<
+                ListVideoProjectsQuery,
+                ListVideoProjectsResult>(
+                    new ListVideoProjectsQuery());
+
+            if (result is null)
+                return;
+
+            VideoProjectsListBox.ItemsSource = result.Projects;
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(
+                ex.Message,
+                "Error al cargar proyectos de vídeo",
+                MessageBoxButton.OK,
+                MessageBoxImage.Error);
+        }
+    }
+
+    private async void NewVideoProject_Click(
         object sender,
         RoutedEventArgs e)
     {
@@ -27,6 +59,38 @@ public partial class MainWindow : Window
             Owner = this
         };
 
-        window.ShowDialog();
+        var result = window.ShowDialog();
+
+        if (result == true)
+        {
+            await LoadVideoProjectsAsync();
+        }
+    }
+
+    private async Task LoadVideoProjectsAsync()
+    {
+        try
+        {
+            var dispatcher = _serviceProvider
+                .GetRequiredService<IApplicationDispatcher>();
+
+            var result = await dispatcher.SendQueryAsync<
+                ListVideoProjectsQuery,
+                ListVideoProjectsResult>(
+                    new ListVideoProjectsQuery());
+
+            if (result is null)
+                return;
+
+            VideoProjectsListBox.ItemsSource = result.Projects;
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(
+                ex.Message,
+                "Error al cargar proyectos de vídeo",
+                MessageBoxButton.OK,
+                MessageBoxImage.Error);
+        }
     }
 }

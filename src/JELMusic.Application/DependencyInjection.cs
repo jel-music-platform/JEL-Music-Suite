@@ -3,6 +3,7 @@ using JELMusic.Application.Projects.CreateProject;
 using JELMusic.Application.Projects.UpdateProject;
 using JELMusic.Application.Queries.GetMusicalProjectById;
 using JELMusic.Application.Queries.ListMusicalProjects;
+using JELMusic.Application.Queries.ListVideoProjects;
 using JELMusic.Application.VideoProjects.CreateVideoProject;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -32,6 +33,10 @@ public static class DependencyInjection
         services.AddScoped<
             ICommandHandler<CreateVideoProjectCommand, Guid>,
             CreateVideoProjectCommandHandler>();
+
+        services.AddScoped<
+            IQueryHandler<ListVideoProjectsQuery, ListVideoProjectsResult>,
+            ListVideoProjectsHandler>();
 
         return services;
     }
