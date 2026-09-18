@@ -31,6 +31,8 @@ public sealed class FakeVideoProjectRepository
         Guid id,
         CancellationToken cancellationToken = default)
     {
+        LastCancellationToken = cancellationToken;
+
         return Task.FromResult(
             Projects.FirstOrDefault(p => p.Id == id));
     }

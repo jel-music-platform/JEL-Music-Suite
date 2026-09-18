@@ -155,7 +155,8 @@
                                             Width="90"
                                             Height="40"
                                             VerticalAlignment="Center"
-                                            Margin="20,0,0,0"/>
+                                            Margin="20,0,0,0"
+                                            Click="OpenVideoProject_Click"/>
 
                                 </Grid>
 

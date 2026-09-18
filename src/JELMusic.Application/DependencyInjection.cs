@@ -1,7 +1,8 @@
-﻿using JELMusic.Application.Abstractions.Dispatching;
+using JELMusic.Application.Abstractions.Dispatching;
 using JELMusic.Application.Projects.CreateProject;
 using JELMusic.Application.Projects.UpdateProject;
 using JELMusic.Application.Queries.GetMusicalProjectById;
+using JELMusic.Application.Queries.GetVideoProjectById;
 using JELMusic.Application.Queries.ListMusicalProjects;
 using JELMusic.Application.Queries.ListVideoProjects;
 using JELMusic.Application.VideoProjects.CreateVideoProject;
@@ -37,6 +38,10 @@ public static class DependencyInjection
         services.AddScoped<
             IQueryHandler<ListVideoProjectsQuery, ListVideoProjectsResult>,
             ListVideoProjectsHandler>();
+
+        services.AddScoped<
+            IQueryHandler<GetVideoProjectByIdQuery, GetVideoProjectByIdResult>,
+            GetVideoProjectByIdHandler>();
 
         return services;
     }

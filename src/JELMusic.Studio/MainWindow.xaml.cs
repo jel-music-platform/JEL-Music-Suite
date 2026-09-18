@@ -1,5 +1,6 @@
 using System.Windows;
 using JELMusic.Application.Abstractions.Dispatching;
+using JELMusic.Application.Queries.GetVideoProjectById;
 using JELMusic.Application.Queries.ListVideoProjects;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -89,6 +90,63 @@ public partial class MainWindow : Window
             MessageBox.Show(
                 ex.Message,
                 "Error al cargar proyectos de vídeo",
+                MessageBoxButton.OK,
+                MessageBoxImage.Error);
+        }
+    }
+
+    private async void OpenVideoProject_Click(
+        object sender,
+        RoutedEventArgs e)
+    {
+        try
+        {
+            if (sender is not FrameworkElement element ||
+                element.DataContext is not VideoProjectListItem project)
+            {
+                MessageBox.Show(
+                    "No se ha podido identificar el proyecto de vídeo.",
+                    "Abrir proyecto",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning);
+
+                return;
+            }
+
+            var dispatcher = _serviceProvider
+                .GetRequiredService<IApplicationDispatcher>();
+
+            var result = await dispatcher.SendQueryAsync<
+                GetVideoProjectByIdQuery,
+                GetVideoProjectByIdResult>(
+                    new GetVideoProjectByIdQuery(
+                        project.VideoProjectId));
+
+            if (result is null)
+            {
+                MessageBox.Show(
+                    "No se ha encontrado el proyecto de vídeo.",
+                    "Abrir proyecto",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning);
+
+                return;
+            }
+
+            var window = new VideoProjectDetailWindow(
+                dispatcher,
+                result.VideoProjectId)
+            {
+                Owner = this
+            };
+
+            window.ShowDialog();
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(
+                ex.Message,
+                "Error al abrir el proyecto de vídeo",
                 MessageBoxButton.OK,
                 MessageBoxImage.Error);
         }
