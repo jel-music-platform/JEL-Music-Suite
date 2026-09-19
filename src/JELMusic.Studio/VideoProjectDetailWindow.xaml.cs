@@ -6,10 +6,16 @@ namespace JELMusic.Studio;
 
 public partial class VideoProjectDetailWindow : Window
 {
+    private readonly IApplicationDispatcher _dispatcher;
+    private readonly Guid _videoProjectId;
+
     public VideoProjectDetailWindow(
         IApplicationDispatcher dispatcher,
         Guid videoProjectId)
     {
+        _dispatcher = dispatcher;
+        _videoProjectId = videoProjectId;
+
         InitializeComponent();
 
         Loaded += async (_, _) =>
@@ -53,6 +59,31 @@ public partial class VideoProjectDetailWindow : Window
                 DialogResult = false;
             }
         };
+    }
+
+    private void OpenWorkspace_Click(
+        object sender,
+        RoutedEventArgs e)
+    {
+        try
+        {
+            var window = new VideoProjectWorkspaceWindow(
+                _dispatcher,
+                _videoProjectId)
+            {
+                Owner = this
+            };
+
+            window.ShowDialog();
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(
+                ex.Message,
+                "Error al abrir el estudio",
+                MessageBoxButton.OK,
+                MessageBoxImage.Error);
+        }
     }
 
     private void Close_Click(

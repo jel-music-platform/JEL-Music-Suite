@@ -80,13 +80,23 @@
 
         </StackPanel>
 
-        <Button Grid.Row="3"
-                Content="Cerrar"
-                Width="110"
-                Height="42"
-                HorizontalAlignment="Right"
-                Margin="0,24,0,0"
-                Click="Close_Click"/>
+             <StackPanel Grid.Row="3"
+            Orientation="Horizontal"
+            HorizontalAlignment="Right"
+            Margin="0,24,0,0">
+
+    <Button Content="Abrir estudio"
+            Width="130"
+            Height="42"
+            Margin="0,0,12,0"
+            Click="OpenWorkspace_Click"/>
+
+    <Button Content="Cerrar"
+            Width="110"
+            Height="42"
+            Click="Close_Click"/>
+
+  </StackPanel>
 
     </Grid>
 
