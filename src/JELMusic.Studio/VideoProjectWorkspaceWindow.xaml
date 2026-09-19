@@ -124,25 +124,62 @@
 
         <!-- Línea temporal -->
 
-        <Border Grid.Row="2"
-                Background="#191919"
-                CornerRadius="8"
-                Margin="0,20,0,0"
-                Padding="20">
+               <!-- Línea temporal -->
+
+                      <!-- Línea temporal -->
+
+              <Border Grid.Row="2"
+                      Background="#191919"
+                      CornerRadius="8"
+                      Margin="0,20,0,0"
+                      Padding="20">
 
             <Grid>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
 
                 <TextBlock Text="LÍNEA TEMPORAL"
                            FontSize="12"
                            FontWeight="SemiBold"
-                           Foreground="#888888"
-                           VerticalAlignment="Top"/>
+                           Foreground="#888888"/>
 
-                <TextBlock Text="Las escenas del videoclip aparecerán aquí."
-                           HorizontalAlignment="Center"
-                           VerticalAlignment="Center"
-                           FontSize="14"
-                           Foreground="#555555"/>
+                <Grid Grid.Row="1"
+                      Margin="0,18,0,0">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="34"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Canvas x:Name="TimelineRuler"
+                            Grid.Row="0"
+                            Height="24"/>
+
+                    <Border Grid.Row="1"
+                            Background="#252525"
+                            CornerRadius="4"
+                            VerticalAlignment="Center">
+
+                        <Border x:Name="TimelineProgress"
+                                Background="#555555"
+                                HorizontalAlignment="Left"
+                                Width="0"
+                                CornerRadius="4"/>
+
+                    </Border>
+
+                    <TextBlock x:Name="TimelineDurationTextBlock"
+                               Grid.Row="2"
+                               HorizontalAlignment="Right"
+                               Margin="0,6,0,0"
+                               FontSize="12"
+                               Foreground="#888888"/>
+
+                </Grid>
 
             </Grid>
 
