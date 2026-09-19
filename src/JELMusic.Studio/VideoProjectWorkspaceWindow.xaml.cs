@@ -1,5 +1,6 @@
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using JELMusic.Application.Abstractions.Dispatching;
 using JELMusic.Application.Queries.GetVideoProjectById;
@@ -8,6 +9,8 @@ namespace JELMusic.Studio;
 
 public partial class VideoProjectWorkspaceWindow : Window
 {
+    private TimeSpan _projectDuration;
+
     public VideoProjectWorkspaceWindow(
         IApplicationDispatcher dispatcher,
         Guid videoProjectId)
@@ -38,9 +41,12 @@ public partial class VideoProjectWorkspaceWindow : Window
                 NameTextBlock.Text = result.Name;
                 StatusTextBlock.Text = result.Status.ToString();
                 ConceptTextBlock.Text = result.Concept;
-                DurationTextBlock.Text = result.Duration.ToString(@"mm\:ss");
+                DurationTextBlock.Text =
+                    result.Duration.ToString(@"mm\:ss");
 
-                BuildTimeline(result.Duration);
+                _projectDuration = result.Duration;
+
+                BuildTimeline(_projectDuration);
             }
             catch (Exception ex)
             {
@@ -61,6 +67,9 @@ public partial class VideoProjectWorkspaceWindow : Window
 
         TimelineDurationTextBlock.Text =
             duration.ToString(@"mm\:ss");
+
+        TimelineSelectedTimeTextBlock.Text =
+            "00:00";
 
         TimelineRuler.SizeChanged += (_, _) =>
         {
@@ -89,7 +98,8 @@ public partial class VideoProjectWorkspaceWindow : Window
              seconds <= totalSeconds;
              seconds += interval)
         {
-            var position = seconds / totalSeconds * width;
+            var position =
+                seconds / totalSeconds * width;
 
             var marker = new Border
             {
@@ -97,7 +107,8 @@ public partial class VideoProjectWorkspaceWindow : Window
                 Height = 8,
                 Background = new SolidColorBrush(
                     Color.FromRgb(100, 100, 100)),
-                HorizontalAlignment = HorizontalAlignment.Left
+                HorizontalAlignment =
+                    HorizontalAlignment.Left
             };
 
             Canvas.SetLeft(marker, position);
@@ -120,5 +131,87 @@ public partial class VideoProjectWorkspaceWindow : Window
 
             TimelineRuler.Children.Add(label);
         }
+    }
+
+    private void TimelineTrack_MouseLeftButtonDown(
+    object sender,
+    MouseButtonEventArgs e)
+{
+    if (sender is not Border track)
+        return;
+
+    if (_projectDuration.TotalSeconds <= 0 ||
+        track.ActualWidth <= 0)
+    {
+        return;
+    }
+
+    var position = e.GetPosition(track).X;
+
+    position = Math.Clamp(
+        position,
+        0,
+        track.ActualWidth);
+
+    var percentage =
+        position / track.ActualWidth;
+
+    var selectedTime =
+        TimeSpan.FromSeconds(
+            percentage *
+            _projectDuration.TotalSeconds);
+
+    var playheadPosition = Math.Clamp(
+        position - Playhead.Width / 2,
+        0,
+        Math.Max(
+            0,
+            track.ActualWidth - Playhead.Width));
+
+    Playhead.Margin = new Thickness(
+        playheadPosition,
+        0,
+        0,
+        0);
+
+    TimelineSelectedTimeTextBlock.Text =
+        selectedTime.ToString(@"mm\:ss");
+
+    e.Handled = true;
+}
+
+        var position = e.GetPosition(track).X;
+
+        position = Math.Clamp(
+            position,
+            0,
+            track.ActualWidth);
+
+        var percentage =
+            position / track.ActualWidth;
+
+        var selectedTime =
+            TimeSpan.FromSeconds(
+                percentage *
+                _projectDuration.TotalSeconds);
+
+
+        var playheadPosition = Math.Clamp(
+            position - Playhead.Width / 2,
+            0,
+            Math.Max(
+            0,
+            track.ActualWidth - Playhead.Width));
+
+       Playhead.Margin = new Thickness(
+           playheadPosition,
+           0,
+           0,
+           0);
+
+        TimelineSelectedTimeTextBlock.Text =
+            selectedTime.ToString(@"mm\:ss");
+
+        e.Handled = true;
     }
 }
