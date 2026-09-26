@@ -164,15 +164,20 @@
 
     <Grid>
 
-        <Border x:Name="Playhead"
-                Width="2"
-                Height="34"
-                Background="#DDDDDD"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Center"
-                Margin="0,0,0,0"/>
+    <Canvas x:Name="TimelineScenesCanvas"
+            IsHitTestVisible="False"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"/>
 
-    </Grid>
+    <Border x:Name="Playhead"
+            Width="2"
+            Height="34"
+            Background="#DDDDDD"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            Margin="0,0,0,0"/>
+
+   </Grid>
 
 </Border>
 

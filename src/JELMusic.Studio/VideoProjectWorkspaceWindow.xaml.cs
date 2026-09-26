@@ -4,6 +4,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using JELMusic.Application.Abstractions.Dispatching;
 using JELMusic.Application.Queries.GetVideoProjectById;
+using JELMusic.Application.Queries.ListVideoScenes;
 
 namespace JELMusic.Studio;
 
@@ -47,6 +48,16 @@ public partial class VideoProjectWorkspaceWindow : Window
                 _projectDuration = result.Duration;
 
                 BuildTimeline(_projectDuration);
+
+                var scenesResult = await dispatcher.SendQueryAsync<
+                    ListVideoScenesQuery,
+                    ListVideoScenesResult>(
+                        new ListVideoScenesQuery(videoProjectId));
+
+                if (scenesResult is not null)
+                {
+                    DrawScenes(scenesResult.Scenes);
+                }
             }
             catch (Exception ex)
             {
@@ -133,52 +144,123 @@ public partial class VideoProjectWorkspaceWindow : Window
         }
     }
 
-    private void TimelineTrack_MouseLeftButtonDown(
-    object sender,
-    MouseButtonEventArgs e)
-{
-    if (sender is not Border track)
-        return;
-
-    if (_projectDuration.TotalSeconds <= 0 ||
-        track.ActualWidth <= 0)
+    private void DrawScenes(
+        IReadOnlyList<VideoSceneListItem> scenes)
     {
-        return;
+        TimelineScenesCanvas.Children.Clear();
+
+        if (_projectDuration.TotalSeconds <= 0 ||
+            TimelineScenesCanvas.ActualWidth <= 0)
+        {
+            return;
+        }
+
+        var totalSeconds = _projectDuration.TotalSeconds;
+        var width = TimelineScenesCanvas.ActualWidth;
+
+        foreach (var scene in scenes)
+        {
+            var startRatio =
+                scene.StartTime.TotalSeconds / totalSeconds;
+
+            var durationRatio =
+                scene.Duration.TotalSeconds / totalSeconds;
+
+            var left =
+                Math.Clamp(
+                    startRatio * width,
+                    0,
+                    width);
+
+            var sceneWidth =
+                Math.Max(
+                    2,
+                    durationRatio * width);
+
+            sceneWidth = Math.Min(
+                sceneWidth,
+                Math.Max(2, width - left));
+
+            var sceneBorder = new Border
+            {
+                Width = sceneWidth,
+                Height = 26,
+                Background = new SolidColorBrush(
+                    Color.FromRgb(55, 55, 55)),
+                BorderBrush = new SolidColorBrush(
+                    Color.FromRgb(90, 90, 90)),
+                BorderThickness = new Thickness(1),
+                CornerRadius = new CornerRadius(3),
+                Padding = new Thickness(6, 0, 6, 0),
+                VerticalAlignment = VerticalAlignment.Center,
+                ToolTip =
+                    $"{scene.Name}  " +
+                    $"{scene.StartTime:mm\\:ss} - " +
+                    $"{scene.EndTime:mm\\:ss}"
+            };
+
+            var sceneText = new TextBlock
+            {
+                Text = scene.Name,
+                FontSize = 11,
+                Foreground = Brushes.White,
+                VerticalAlignment = VerticalAlignment.Center,
+                TextTrimming = TextTrimming.CharacterEllipsis
+            };
+
+            sceneBorder.Child = sceneText;
+
+            Canvas.SetLeft(sceneBorder, left);
+            Canvas.SetTop(sceneBorder, 4);
+
+            TimelineScenesCanvas.Children.Add(sceneBorder);
+        }
     }
 
-    var position = e.GetPosition(track).X;
+    private void TimelineTrack_MouseLeftButtonDown(
+        object sender,
+        MouseButtonEventArgs e)
+    {
+        if (sender is not Border track)
+            return;
 
-    position = Math.Clamp(
-        position,
-        0,
-        track.ActualWidth);
+        if (_projectDuration.TotalSeconds <= 0 ||
+            track.ActualWidth <= 0)
+        {
+            return;
+        }
 
-    var percentage =
-        position / track.ActualWidth;
+        var position = e.GetPosition(track).X;
 
-    var selectedTime =
-        TimeSpan.FromSeconds(
-            percentage *
-            _projectDuration.TotalSeconds);
-
-    var playheadPosition = Math.Clamp(
-        position - Playhead.Width / 2,
-        0,
-        Math.Max(
+        position = Math.Clamp(
+            position,
             0,
-            track.ActualWidth - Playhead.Width));
+            track.ActualWidth);
 
-    Playhead.Margin = new Thickness(
-        playheadPosition,
-        0,
-        0,
-        0);
+        var percentage =
+            position / track.ActualWidth;
 
-    TimelineSelectedTimeTextBlock.Text =
-        selectedTime.ToString(@"mm\:ss");
+        var selectedTime =
+            TimeSpan.FromSeconds(
+                percentage *
+                _projectDuration.TotalSeconds);
 
-    e.Handled = true;
-}
+        var playheadPosition = Math.Clamp(
+            position - Playhead.Width / 2,
+            0,
+            Math.Max(
+                0,
+                track.ActualWidth - Playhead.Width));
 
+        Playhead.Margin = new Thickness(
+            playheadPosition,
+            0,
+            0,
+            0);
 
+        TimelineSelectedTimeTextBlock.Text =
+            selectedTime.ToString(@"mm\:ss");
+
+        e.Handled = true;
+    }
 }
