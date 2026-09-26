@@ -17,6 +17,7 @@ public static class DependencyInjection
 
         services.AddScoped<IMusicalProjectRepository, MusicalProjectRepository>();
         services.AddScoped<IVideoProjectRepository, VideoProjectRepository>();
+        services.AddScoped<IVideoSceneRepository, VideoSceneRepository>();
         services.AddScoped<IUnitOfWork, CoreUnitOfWork>();
 
         return services;
