@@ -180,38 +180,5 @@ public partial class VideoProjectWorkspaceWindow : Window
     e.Handled = true;
 }
 
-        var position = e.GetPosition(track).X;
 
-        position = Math.Clamp(
-            position,
-            0,
-            track.ActualWidth);
-
-        var percentage =
-            position / track.ActualWidth;
-
-        var selectedTime =
-            TimeSpan.FromSeconds(
-                percentage *
-                _projectDuration.TotalSeconds);
-
-
-        var playheadPosition = Math.Clamp(
-            position - Playhead.Width / 2,
-            0,
-            Math.Max(
-            0,
-            track.ActualWidth - Playhead.Width));
-
-       Playhead.Margin = new Thickness(
-           playheadPosition,
-           0,
-           0,
-           0);
-
-        TimelineSelectedTimeTextBlock.Text =
-            selectedTime.ToString(@"mm\:ss");
-
-        e.Handled = true;
-    }
 }
