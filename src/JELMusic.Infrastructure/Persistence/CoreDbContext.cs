@@ -7,6 +7,7 @@ public sealed class CoreDbContext : DbContext
 {
     public DbSet<MusicalProject> MusicalProjects => Set<MusicalProject>();
     public DbSet<VideoProject> VideoProjects => Set<VideoProject>();
+    public DbSet<VideoScene> VideoScenes => Set<VideoScene>();
 
     public CoreDbContext(DbContextOptions<CoreDbContext> options)
         : base(options)
