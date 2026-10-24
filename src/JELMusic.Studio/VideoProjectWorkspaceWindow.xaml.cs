@@ -99,7 +99,7 @@ public partial class VideoProjectWorkspaceWindow : Window
         }
 
         var totalSeconds = duration.TotalSeconds;
-        var width = TimelineRuler.ActualWidth;
+        var width = TimelineTrack.ActualWidth;
 
         var interval = totalSeconds <= 60
             ? 10
@@ -156,7 +156,7 @@ public partial class VideoProjectWorkspaceWindow : Window
         }
 
         var totalSeconds = _projectDuration.TotalSeconds;
-        var width = TimelineScenesCanvas.ActualWidth;
+        var width = TimelineTrack.ActualWidth;
 
         foreach (var scene in scenes)
         {
