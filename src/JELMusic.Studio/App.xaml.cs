@@ -21,8 +21,10 @@ public partial class App : System.Windows.Application
         services.AddApplication();
         services.AddJELMusicFramework();
 
+        var databasePath = @"E:\JEL-Music\JEL-Music-Suite\jelmusic-core.db";
+
         services.AddInfrastructure(
-            "Data Source=jelmusic-core.db");
+            $"Data Source={databasePath}");
 
         _serviceProvider = services.BuildServiceProvider();
 
