@@ -12,11 +12,19 @@ public partial class VideoProjectWorkspaceWindow : Window
 {
     private TimeSpan _projectDuration;
 
+    private IReadOnlyList<VideoSceneListItem> _scenes =
+        Array.Empty<VideoSceneListItem>();
+
     public VideoProjectWorkspaceWindow(
         IApplicationDispatcher dispatcher,
         Guid videoProjectId)
     {
         InitializeComponent();
+        TimelineTrack.SizeChanged += (_, _) =>
+{
+    DrawTimelineRuler(_projectDuration);
+    DrawScenes(_scenes);
+};
 
         Loaded += async (_, _) =>
         {
@@ -56,7 +64,8 @@ public partial class VideoProjectWorkspaceWindow : Window
 
                 if (scenesResult is not null)
                 {
-                    DrawScenes(scenesResult.Scenes);
+                    _scenes = scenesResult.Scenes;
+                     DrawScenes(_scenes);
                 }
             }
             catch (Exception ex)
@@ -82,11 +91,8 @@ public partial class VideoProjectWorkspaceWindow : Window
         TimelineSelectedTimeTextBlock.Text =
             "00:00";
 
-        TimelineRuler.SizeChanged += (_, _) =>
-        {
-            DrawTimelineRuler(duration);
-        };
-    }
+        DrawTimelineRuler(duration);
+ }
 
     private void DrawTimelineRuler(TimeSpan duration)
     {
@@ -99,7 +105,7 @@ public partial class VideoProjectWorkspaceWindow : Window
         }
 
         var totalSeconds = duration.TotalSeconds;
-        var width = TimelineTrack.ActualWidth;
+        var width = TimelineRuler.ActualWidth;
 
         var interval = totalSeconds <= 60
             ? 10
@@ -156,7 +162,7 @@ public partial class VideoProjectWorkspaceWindow : Window
         }
 
         var totalSeconds = _projectDuration.TotalSeconds;
-        var width = TimelineTrack.ActualWidth;
+        var width = TimelineScenesCanvas.ActualWidth;
 
         foreach (var scene in scenes)
         {
