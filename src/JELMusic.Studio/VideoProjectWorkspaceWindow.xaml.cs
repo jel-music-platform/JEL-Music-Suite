@@ -14,7 +14,7 @@ public partial class VideoProjectWorkspaceWindow : Window
 
     private IReadOnlyList<VideoSceneListItem> _scenes =
         Array.Empty<VideoSceneListItem>();
-
+     private Guid? _selectedSceneId;
     public VideoProjectWorkspaceWindow(
         IApplicationDispatcher dispatcher,
         Guid videoProjectId)
@@ -192,9 +192,13 @@ public partial class VideoProjectWorkspaceWindow : Window
                 Width = sceneWidth,
                 Height = 26,
                 Background = new SolidColorBrush(
-                    Color.FromRgb(55, 55, 55)),
+                    _selectedSceneId == scene.VideoSceneId
+                        ? Color.FromRgb(190, 90, 30)
+                        : Color.FromRgb(55, 55, 55)),
                 BorderBrush = new SolidColorBrush(
-                    Color.FromRgb(90, 90, 90)),
+                    _selectedSceneId == scene.VideoSceneId
+                        ? Color.FromRgb(255, 170, 80)
+                        : Color.FromRgb(90, 90, 90)),
                 BorderThickness = new Thickness(1),
                 CornerRadius = new CornerRadius(3),
                 Padding = new Thickness(6, 0, 6, 0),
@@ -215,7 +219,14 @@ public partial class VideoProjectWorkspaceWindow : Window
             };
 
             sceneBorder.Child = sceneText;
+            sceneBorder.Cursor = Cursors.Hand;
 
+            sceneBorder.MouseLeftButtonDown += (_, e) =>
+            {
+                _selectedSceneId = scene.VideoSceneId;
+                DrawScenes(_scenes);
+                e.Handled = true;
+   };
             Canvas.SetLeft(sceneBorder, left);
             Canvas.SetTop(sceneBorder, 4);
 
