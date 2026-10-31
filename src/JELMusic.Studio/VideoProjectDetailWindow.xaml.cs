@@ -30,7 +30,7 @@ public partial class VideoProjectDetailWindow : Window
                 if (result is null)
                 {
                     MessageBox.Show(
-                        "No se ha encontrado el proyecto de vídeo.",
+                        "No se ha encontrado el proyecto de vÃ­deo.",
                         "Proyecto no encontrado",
                         MessageBoxButton.OK,
                         MessageBoxImage.Warning);
@@ -52,7 +52,7 @@ public partial class VideoProjectDetailWindow : Window
             {
                 MessageBox.Show(
                     ex.Message,
-                    "Error al cargar el proyecto de vídeo",
+                    "Error al cargar el proyecto de vÃ­deo",
                     MessageBoxButton.OK,
                     MessageBoxImage.Error);
 

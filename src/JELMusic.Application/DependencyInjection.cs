@@ -1,6 +1,7 @@
 using JELMusic.Application.Abstractions.Dispatching;
 using JELMusic.Application.Projects.CreateProject;
 using JELMusic.Application.Projects.UpdateProject;
+using JELMusic.Application.VideoProjects.UpdateVideoSceneTiming;
 using JELMusic.Application.Queries.GetMusicalProjectById;
 using JELMusic.Application.Queries.GetVideoProjectById;
 using JELMusic.Application.Queries.ListMusicalProjects;
@@ -40,6 +41,9 @@ public static class DependencyInjection
         services.AddScoped<
             ICommandHandler<CreateVideoSceneCommand, Guid>,
             CreateVideoSceneCommandHandler>();
+        services.AddScoped<
+            ICommandHandler<UpdateVideoSceneTimingCommand, Guid>,
+            UpdateVideoSceneTimingCommandHandler>();
 
         services.AddScoped<
             IQueryHandler<ListVideoProjectsQuery, ListVideoProjectsResult>,

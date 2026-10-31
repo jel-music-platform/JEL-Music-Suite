@@ -55,7 +55,7 @@
 
         </Grid>
 
-        <!-- Área principal -->
+        <!-- Área principal -->
 
         <Grid Grid.Row="1">
 
@@ -72,7 +72,9 @@
                     Padding="20"
                     Margin="0,0,16,0">
 
-                <StackPanel>
+                <ScrollViewer VerticalScrollBarVisibility="Auto"
+                              HorizontalScrollBarVisibility="Disabled">
+                    <StackPanel>
 
                     <TextBlock Text="INFORMACIÓN"
                                FontSize="12"
@@ -97,19 +99,153 @@
                     <TextBlock x:Name="DurationTextBlock"
                                FontSize="14"
                                Foreground="#CCCCCC"/>
+                                          <TextBlock Text="NUEVA ESCENA"
+                               FontSize="12"
+                               FontWeight="SemiBold"
+                               Foreground="#888888"
+                               Margin="0,24,0,12"/>
+                                         <TextBlock Text="Nombre"
+                               FontSize="12"
+                               Foreground="#777777"
+                               Margin="0,0,0,4"/>
 
-                </StackPanel>
+                    <TextBox x:Name="NewSceneNameTextBox"
+                             Height="30"
+                             Padding="6,4"
+                             Background="#252525"
+                             Foreground="White"
+                             BorderBrush="#555555"
+                             Margin="0,0,0,10"/>
 
-</Border>
+                   <TextBlock Text="Inicio (mm:ss)"
+                               FontSize="12"
+                               Foreground="#777777"
+                               Margin="0,0,0,4"/>
 
-            <!-- Área audiovisual -->
+                    <TextBox x:Name="NewSceneStartTimeTextBox"
+                             Text="00:00"
+                             Height="30"
+                             Padding="6,4"
+                             Background="#252525"
+                             Foreground="White"
+                             BorderBrush="#555555"
+                             Margin="0,0,0,10"/>
+
+                    <TextBlock Text="Final (mm:ss)"
+                               FontSize="12"
+                               Foreground="#777777"
+                               Margin="0,0,0,4"/>
+
+                    <TextBox x:Name="NewSceneEndTimeTextBox"
+                             Text="00:30"
+                             Height="30"
+                             Padding="6,4"
+                             Background="#252525"
+                             Foreground="White"
+                             BorderBrush="#555555"
+                             Margin="0,0,0,10"/>
+
+                    <TextBlock Text="Descripción"
+                               FontSize="12"
+                               Foreground="#777777"
+                               Margin="0,0,0,4"/>
+
+                    <TextBox x:Name="NewSceneDescriptionTextBox"
+                             Height="60"
+                             Padding="6,4"
+                             Background="#252525"
+                             Foreground="White"
+                             BorderBrush="#555555"
+                             TextWrapping="Wrap"
+                             AcceptsReturn="True"
+                             VerticalScrollBarVisibility="Auto"
+                             Margin="0,0,0,10"/>
+
+                    <Button x:Name="CreateSceneButton"
+                            Content="Crear escena"
+                            Height="34"
+                            Background="#BE5A1E"
+                            Foreground="White"
+                            BorderThickness="0"
+                            Click="CreateSceneButton_Click"
+                            Margin="0,0,0,18"/>
+
+                   <TextBlock Text="EDITAR ESCENA"
+                               FontSize="12"
+                               FontWeight="SemiBold"
+                               Foreground="#888888"
+                               Margin="0,30,0,12"/>
+
+                    <TextBlock x:Name="SelectedSceneNameTextBlock"
+                               Text="Ninguna escena seleccionada"
+                               FontSize="14"
+                               FontWeight="SemiBold"
+                               Foreground="White"
+                               TextWrapping="Wrap"
+                               Margin="0,0,0,12"/>
+
+                    <TextBlock Text="Inicio (mm:ss)"
+                               FontSize="12"
+                               Foreground="#777777"
+                               Margin="0,0,0,4"/>
+
+                    <TextBox x:Name="SceneStartTimeTextBox"
+                             Text="00:00"
+                             Height="30"
+                             Padding="6,4"
+                             Background="#252525"
+                             Foreground="White"
+                             BorderBrush="#555555"
+                             Margin="0,0,0,10"
+                             TextChanged="SceneTimingTextBox_TextChanged"/>
+
+                    <TextBlock Text="Final (mm:ss)"
+                               FontSize="12"
+                               Foreground="#777777"
+                               Margin="0,0,0,4"/>
+
+                    <TextBox x:Name="SceneEndTimeTextBox"
+                             Text="00:00"
+                             Height="30"
+                             Padding="6,4"
+                             Background="#252525"
+                             Foreground="White"
+                             BorderBrush="#555555"
+                             Margin="0,0,0,10"
+                             TextChanged="SceneTimingTextBox_TextChanged"/>
+
+                    <TextBlock Text="Duración de la escena"
+                               FontSize="12"
+                               Foreground="#777777"
+                               Margin="0,0,0,4"/>
+
+                    <TextBlock x:Name="SceneDurationTextBlock"
+                               Text="00:00"
+                               FontSize="14"
+                               Foreground="#CCCCCC"
+                               Margin="0,0,0,14"/>
+
+                    <Button x:Name="SaveSceneTimingButton"
+                            Content="Guardar cambios"
+                            Height="34"
+                            Background="#BE5A1E"
+                            Foreground="White"
+                            BorderThickness="0"
+                            Click="SaveSceneTimingButton_Click"/>
+
+                 </StackPanel>
+
+             </ScrollViewer>
+
+         </Border>
+
+            <!-- Área audiovisual -->
 
             <Border Grid.Column="1"
                     Background="#191919"
                     CornerRadius="8">
 
                 <Grid>
-
                     <TextBlock Text="ÁREA DE TRABAJO"
                                HorizontalAlignment="Center"
                                VerticalAlignment="Center"
@@ -136,7 +272,7 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <TextBlock Text="LÍNEA TEMPORAL"
+                <TextBlock Text="LíNEA TEMPORAL"
                            FontSize="12"
                            FontWeight="SemiBold"
                            Foreground="#888888"/>

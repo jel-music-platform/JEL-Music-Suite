@@ -71,4 +71,21 @@ public class VideoScene
             endTime,
             description);
     }
+    public void UpdateTiming(
+        TimeSpan startTime,
+        TimeSpan endTime)
+    {
+        if (startTime < TimeSpan.Zero)
+            throw new ArgumentOutOfRangeException(
+                nameof(startTime),
+                "Video scene start time cannot be negative.");
+
+        if (endTime <= startTime)
+            throw new ArgumentOutOfRangeException(
+                nameof(endTime),
+                "Video scene end time must be greater than start time.");
+
+        StartTime = startTime;
+        EndTime = endTime;
+    }
 }
