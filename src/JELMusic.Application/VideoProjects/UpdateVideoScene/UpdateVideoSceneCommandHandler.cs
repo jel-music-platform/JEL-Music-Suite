@@ -1,17 +1,16 @@
-
 using JELMusic.Application.Abstractions.Dispatching;
 using JELMusic.Domain.Repositories;
 
-namespace JELMusic.Application.VideoProjects.UpdateVideoSceneTiming;
+namespace JELMusic.Application.VideoProjects.UpdateVideoScene;
 
-public sealed class UpdateVideoSceneTimingCommandHandler
-    : ICommandHandler<UpdateVideoSceneTimingCommand, Guid>
+public sealed class UpdateVideoSceneCommandHandler
+    : ICommandHandler<UpdateVideoSceneCommand, Guid>
 {
     private readonly IVideoProjectRepository _videoProjectRepository;
     private readonly IVideoSceneRepository _videoSceneRepository;
     private readonly IUnitOfWork _unitOfWork;
 
-    public UpdateVideoSceneTimingCommandHandler(
+    public UpdateVideoSceneCommandHandler(
         IVideoProjectRepository videoProjectRepository,
         IVideoSceneRepository videoSceneRepository,
         IUnitOfWork unitOfWork)
@@ -22,7 +21,7 @@ public sealed class UpdateVideoSceneTimingCommandHandler
     }
 
     public async Task<Guid> HandleAsync(
-        UpdateVideoSceneTimingCommand command,
+        UpdateVideoSceneCommand command,
         CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(command);
@@ -32,21 +31,23 @@ public sealed class UpdateVideoSceneTimingCommandHandler
             cancellationToken);
 
         if (scene is null)
-            throw new InvalidOperationException(
-                "Video scene not found.");
+            throw new InvalidOperationException("Video scene not found.");
 
         var videoProject = await _videoProjectRepository.GetByIdAsync(
             scene.VideoProjectId,
             cancellationToken);
 
         if (videoProject is null)
-            throw new InvalidOperationException(
-                "Video project not found.");
+            throw new InvalidOperationException("Video project not found.");
 
         if (command.EndTime > videoProject.Duration)
             throw new ArgumentOutOfRangeException(
                 nameof(command.EndTime),
                 "Video scene end time cannot exceed video project duration.");
+
+        scene.UpdateDetails(
+            command.Name,
+            command.Description);
 
         scene.UpdateTiming(
             command.StartTime,
@@ -54,8 +55,7 @@ public sealed class UpdateVideoSceneTimingCommandHandler
 
         _videoSceneRepository.Update(scene);
 
-        await _unitOfWork.SaveChangesAsync(
-            cancellationToken);
+        await _unitOfWork.SaveChangesAsync(cancellationToken);
 
         return scene.Id;
     }

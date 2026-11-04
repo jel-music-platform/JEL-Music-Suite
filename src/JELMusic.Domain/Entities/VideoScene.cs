@@ -71,6 +71,18 @@ public class VideoScene
             endTime,
             description);
     }
+    public void UpdateDetails(
+        string name,
+        string description)
+    {
+        if (string.IsNullOrWhiteSpace(name))
+            throw new ArgumentException(
+                "Video scene name cannot be empty.",
+                nameof(name));
+
+        Name = name;
+        Description = description;
+    }
     public void UpdateTiming(
         TimeSpan startTime,
         TimeSpan endTime)

@@ -176,13 +176,35 @@
                                Foreground="#888888"
                                Margin="0,30,0,12"/>
 
-                    <TextBlock x:Name="SelectedSceneNameTextBlock"
-                               Text="Ninguna escena seleccionada"
-                               FontSize="14"
-                               FontWeight="SemiBold"
-                               Foreground="White"
-                               TextWrapping="Wrap"
-                               Margin="0,0,0,12"/>
+                   <TextBlock Text="Nombre de la escena"
+                               FontSize="12"
+                               Foreground="#777777"
+                               Margin="0,0,0,4"/>
+
+                    <TextBox x:Name="SceneNameTextBox"
+                             Height="30"
+                             Padding="6,4"
+                             Background="#252525"
+                             Foreground="White"
+                             BorderBrush="#555555"
+                             Margin="0,0,0,10"/>
+
+                    <TextBlock Text="Descripción"
+                               FontSize="12"
+                               Foreground="#777777"
+                               Margin="0,0,0,4"/>
+
+                    <TextBox x:Name="SceneDescriptionTextBox"
+                             MinHeight="70"
+                             MaxHeight="110"
+                             Padding="6,4"
+                             Background="#252525"
+                             Foreground="White"
+                             BorderBrush="#555555"
+                             TextWrapping="Wrap"
+                             AcceptsReturn="True"
+                             VerticalScrollBarVisibility="Auto"
+                             Margin="0,0,0,12"/>
 
                     <TextBlock Text="Inicio (mm:ss)"
                                FontSize="12"

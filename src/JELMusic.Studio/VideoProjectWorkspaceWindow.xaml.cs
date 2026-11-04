@@ -7,7 +7,7 @@ using JELMusic.Application.Abstractions.Dispatching;
 using JELMusic.Application.Queries.GetVideoProjectById;
 using JELMusic.Application.Queries.ListVideoScenes;
 using JELMusic.Application.VideoProjects.CreateVideoScene;
-using JELMusic.Application.VideoProjects.UpdateVideoSceneTiming;
+using JELMusic.Application.VideoProjects.UpdateVideoScene;
 
 namespace JELMusic.Studio;
 
@@ -256,8 +256,8 @@ public partial class VideoProjectWorkspaceWindow : Window
 
         if (scene is null)
         {
-            SelectedSceneNameTextBlock.Text =
-                "Ninguna escena seleccionada";
+            SceneNameTextBox.Text = string.Empty;
+            SceneDescriptionTextBox.Text = string.Empty;
             SceneStartTimeTextBox.Text = "00:00";
             SceneEndTimeTextBox.Text = "00:00";
             SceneDurationTextBlock.Text = "00:00";
@@ -266,7 +266,8 @@ public partial class VideoProjectWorkspaceWindow : Window
             return;
         }
 
-        SelectedSceneNameTextBlock.Text = scene.Name;
+        SceneNameTextBox.Text = scene.Name;
+        SceneDescriptionTextBox.Text = scene.Description ?? string.Empty;
 
         SceneStartTimeTextBox.Text =
             scene.StartTime.ToString(@"mm\:ss");
@@ -320,7 +321,7 @@ public partial class VideoProjectWorkspaceWindow : Window
         SceneDurationTextBlock.Text =
             (endTime - startTime).ToString(@"mm\:ss");
     }
-              private async void CreateSceneButton_Click(
+    private async void CreateSceneButton_Click(
         object sender,
         RoutedEventArgs e)
     {
@@ -437,7 +438,7 @@ public partial class VideoProjectWorkspaceWindow : Window
             CreateSceneButton.IsEnabled = true;
         }
     }
-    private async void SaveSceneTimingButton_Click(
+        private async void SaveSceneTimingButton_Click(
         object sender,
         RoutedEventArgs e)
     {
@@ -452,13 +453,27 @@ public partial class VideoProjectWorkspaceWindow : Window
             return;
         }
 
+        var sceneName = SceneNameTextBox.Text.Trim();
+
+        if (string.IsNullOrWhiteSpace(sceneName))
+        {
+            MessageBox.Show(
+                "El nombre de la escena no puede estar vacío.",
+                "Nombre no válido",
+                MessageBoxButton.OK,
+                MessageBoxImage.Warning);
+
+            SceneNameTextBox.Focus();
+            return;
+        }
+
         if (!TimeSpan.TryParseExact(
-                SceneStartTimeTextBox.Text,
+                SceneStartTimeTextBox.Text.Trim(),
                 @"mm\:ss",
                 CultureInfo.InvariantCulture,
                 out var startTime) ||
             !TimeSpan.TryParseExact(
-                SceneEndTimeTextBox.Text,
+                SceneEndTimeTextBox.Text.Trim(),
                 @"mm\:ss",
                 CultureInfo.InvariantCulture,
                 out var endTime))
@@ -489,13 +504,15 @@ public partial class VideoProjectWorkspaceWindow : Window
         {
             SaveSceneTimingButton.IsEnabled = false;
 
-            var command = new UpdateVideoSceneTimingCommand(
+            var command = new UpdateVideoSceneCommand(
                 sceneId,
+                sceneName,
+                SceneDescriptionTextBox.Text.Trim(),
                 startTime,
                 endTime);
 
             await _dispatcher.SendCommandAsync<
-                UpdateVideoSceneTimingCommand,
+                UpdateVideoSceneCommand,
                 Guid>(command);
 
             await ReloadScenesAsync();
@@ -503,7 +520,7 @@ public partial class VideoProjectWorkspaceWindow : Window
             DrawScenes(_scenes);
 
             MessageBox.Show(
-                "Los tiempos de la escena se han guardado correctamente.",
+                "Los datos de la escena se han guardado correctamente.",
                 "Cambios guardados",
                 MessageBoxButton.OK,
                 MessageBoxImage.Information);
@@ -512,7 +529,7 @@ public partial class VideoProjectWorkspaceWindow : Window
         {
             MessageBox.Show(
                 ex.Message,
-                "Error al guardar los tiempos",
+                "Error al guardar la escena",
                 MessageBoxButton.OK,
                 MessageBoxImage.Error);
         }
